@@ -1,0 +1,18 @@
+.md-editor {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .cm-editor {
+    height: 100%;
+    overflow: hidden;
+    .cm-gutters {
+      display: none;
+    }
+    .cm-content {
+      padding-block: 2em;
+      max-width: 620px;
+      margin-inline: auto;
+    }
+  }
+}

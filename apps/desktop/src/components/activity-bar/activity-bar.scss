@@ -1,0 +1,22 @@
+.activity-bar {
+  background-color: #21252b;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px solid #181a1f;
+  .button-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .icon-button {
+      width: 100%;
+      aspect-ratio: 1;
+      font-size: 1.75em;
+    }
+  }
+}
