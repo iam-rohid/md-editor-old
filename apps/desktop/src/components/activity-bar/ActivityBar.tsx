@@ -1,5 +1,5 @@
 import {
-  MdFolder,
+  MdFileCopy,
   MdPerson,
   MdSearch,
   MdSettings,
@@ -12,12 +12,12 @@ const ActivityBar = () => {
     <div
       className="activity-bar"
       style={{
-        width: 56,
+        width: `${4}rem`,
       }}
     >
       <div className="button-list" style={{ flex: 1 }}>
-        <button className="icon-button" aria-label="File Explorer">
-          <MdFolder />
+        <button className="icon-button active" aria-label="File Explorer">
+          <MdFileCopy />
         </button>
         <button className="icon-button" aria-label="Search">
           <MdSearch />

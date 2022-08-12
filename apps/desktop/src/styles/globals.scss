@@ -22,13 +22,38 @@ button {
 }
 
 .icon-button {
-  svg {
-    font-size: 1em;
-    opacity: 0.5;
-  }
+  height: 2.25em;
+  width: 2.25em;
+  border-radius: 0.375em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:hover {
+    background-color: rgba($color: #fff, $alpha: 0.05);
     svg {
       opacity: 1;
+    }
+  }
+  &:active {
+    background-color: rgba($color: #fff, $alpha: 0.1);
+    svg {
+      opacity: 1;
+    }
+  }
+  svg {
+    font-size: 1.5em;
+    opacity: 0.5;
+  }
+  &.active {
+    svg {
+      opacity: 1;
+    }
+  }
+  &:disabled {
+    background-color: transparent;
+    cursor: not-allowed;
+    svg {
+      opacity: 0.25;
     }
   }
 }

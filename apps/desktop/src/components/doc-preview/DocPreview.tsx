@@ -1,17 +1,17 @@
 import ReactMarkdown from "react-markdown";
 import "github-markdown-css/github-markdown-dark.css";
-import "./md-preview.scss";
+import "./doc-preview.scss";
 
 type Props = {
   doc: string;
 };
-const MdPreview = (props: Props) => {
+const DocPreview = (props: Props) => {
   const { doc } = props;
   return (
-    <div className="md-preview">
+    <div className="doc-preview">
       <ReactMarkdown className="markdown-body">{doc}</ReactMarkdown>
     </div>
   );
 };
 
-export default MdPreview;
+export default DocPreview;

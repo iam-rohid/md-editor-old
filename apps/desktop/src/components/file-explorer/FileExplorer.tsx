@@ -6,8 +6,8 @@ const FileExplorer = () => {
     <div
       className="file-explorer"
       style={{
-        left: 56,
-        width: 260,
+        left: `${4}rem`,
+        width: `${20}rem`,
       }}
     >
       <FileExplorerToolbar />

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { MdEditor } from "../md-editor";
-import { MdPreview } from "../md-preview";
+import { DocEditor } from "../doc-editor";
+import { DocPreview } from "../doc-preview";
+import { DocToolbar } from "../doc-toolbar";
 import "./document.scss";
 
 const Document = () => {
@@ -9,15 +10,16 @@ const Document = () => {
     <div
       className="docuemnt"
       style={{
-        left: 56 + 260,
+        left: `${4 + 20}rem`,
         top: 0,
         right: 0,
         bottom: 0,
       }}
     >
-      <div className="container editor-only">
-        <MdEditor initValue={body} onChange={setBody} />
-        <MdPreview doc={body} />
+      <DocToolbar />
+      <div className="container split-view">
+        <DocEditor initValue={body} onChange={setBody} />
+        <DocPreview doc={body} />
       </div>
     </div>
   );

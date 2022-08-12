@@ -1,0 +1,13 @@
+.doc-toolbar {
+  height: 48px;
+  width: 100%;
+  display: flex;
+  padding-inline: 1em;
+  gap: 1em;
+  .button-list {
+    height: 100%;
+    display: flex;
+    gap: 0.25em;
+    align-items: center;
+  }
+}
