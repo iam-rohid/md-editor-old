@@ -8,6 +8,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -20,9 +21,12 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Get('current')
-  me(@Request() req: any) {
-    console.log(req.userId);
-    return this.usersService.findOne(req.user.userId);
+  me(@Request() req: any, @Query() query: any) {
+    return this.usersService.findOne(req.user.userId, {
+      includeProfile: !!query.include && query.include.includes('profile'),
+      includeNotebooks: !!query.include && query.include.includes('notebooks'),
+      includeNotes: !!query.include && query.include.includes('notes'),
+    });
   }
 
   @Post()

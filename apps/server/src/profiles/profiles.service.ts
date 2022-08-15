@@ -40,10 +40,25 @@ export class ProfilesService {
     return `This action returns all profiles`;
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} profile`;
+  async findOne(id: string) {
+    try {
+      const profile = await this.prisma.profile.findUnique({ where: { id } });
+      if (!profile) {
+        throw new HttpException('Profile Not Found', HttpStatus.NOT_FOUND);
+      }
+      return profile;
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        throw new HttpException('Profile Not Found', HttpStatus.NOT_FOUND);
+      }
+      throw new HttpException(
+        'Something went wrong',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   update(id: string, updateProfileDto: UpdateProfileDto) {
     return `This action updates a #${id} profile`;
   }

@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/global/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -37,20 +37,40 @@ export class UsersService {
     return `This action returns all users`;
   }
 
-  async findOne(id: string) {
+  async findOne(
+    id: string,
+    options?: {
+      keepPassword?: boolean;
+      includeProfile?: boolean;
+      includeNotebooks?: boolean;
+      includeNotes?: boolean;
+    },
+  ) {
     try {
       const user = await this.prisma.user.findUnique({
         where: {
           id,
         },
         include: {
-          profile: true,
+          profile: options?.includeProfile === true,
+          notebooks: options?.includeNotebooks === true,
+          notes: options?.includeNotes === true,
         },
       });
       if (!user) {
         throw new HttpException('User not found', HttpStatus.NOT_FOUND);
       }
-      return user;
+
+      if (options?.keepPassword) {
+        return user;
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...safeUser } = user;
+      return {
+        ...safeUser,
+        password: null,
+      };
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         throw new HttpException('User not found', HttpStatus.NOT_FOUND);
@@ -59,20 +79,41 @@ export class UsersService {
     }
   }
 
-  async findOneByEmail(email: string) {
+  async findOneByEmail(
+    email: string,
+    options?: {
+      keepPassword?: boolean;
+      includeProfile?: boolean;
+      includeNotebooks?: boolean;
+      includeNotes?: boolean;
+    },
+  ): Promise<User> {
     try {
       const user = await this.prisma.user.findUnique({
         where: {
           email,
         },
         include: {
-          profile: true,
+          profile: options?.includeProfile === true,
+          notebooks: options?.includeNotebooks === true,
+          notes: options?.includeNotes === true,
         },
       });
+
       if (!user) {
         throw new HttpException('User not found', HttpStatus.NOT_FOUND);
       }
-      return user;
+
+      if (options?.keepPassword) {
+        return user;
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...safeUser } = user;
+      return {
+        ...safeUser,
+        password: null,
+      };
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         throw new HttpException('User not found', HttpStatus.NOT_FOUND);
@@ -81,6 +122,7 @@ export class UsersService {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   update(id: string, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
