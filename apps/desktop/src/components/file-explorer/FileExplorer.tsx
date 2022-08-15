@@ -1,4 +1,6 @@
 import { FileExplorerToolbar } from "@/components/file-explorer-toolbar";
+import { MdFolder, MdNote } from "react-icons/md";
+import { FileTree } from "../file-tree";
 import "./file-explorer.scss";
 
 const FileExplorer = () => {
@@ -11,6 +13,9 @@ const FileExplorer = () => {
       }}
     >
       <FileExplorerToolbar />
+      <div className="container">
+        <FileTree />
+      </div>
     </div>
   );
 };

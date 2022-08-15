@@ -1,4 +1,9 @@
-import { MdCreateNewFolder, MdNoteAdd, MdRefresh } from "react-icons/md";
+import {
+  MdCreateNewFolder,
+  MdNoteAdd,
+  MdRefresh,
+  MdUnfoldLess,
+} from "react-icons/md";
 import "./file-explorer-toolbar.scss";
 
 const FileExplorerToolbar = () => {
@@ -10,6 +15,9 @@ const FileExplorerToolbar = () => {
         </button>
         <button className="icon-button">
           <MdCreateNewFolder />
+        </button>
+        <button className="icon-button">
+          <MdUnfoldLess />
         </button>
         <button className="icon-button">
           <MdRefresh />
