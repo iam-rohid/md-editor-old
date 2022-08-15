@@ -5,9 +5,11 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { GlobalModule } from './global/global.module';
+import { NotebooksModule } from './notebooks/notebooks.module';
+import { NotesModule } from './notes/notes.module';
 
 @Module({
-  imports: [AuthModule, UsersModule, ProfilesModule, GlobalModule],
+  imports: [AuthModule, UsersModule, ProfilesModule, GlobalModule, NotebooksModule, NotesModule],
   controllers: [AppController],
   providers: [AppService],
 })
