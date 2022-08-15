@@ -43,13 +43,13 @@ model Notebook {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   title       String
-  description String
+  description String?
   authorId    String
   author      User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  notes       Note[]
-  notebooks   Notebook[] @relation("ParentNotebook")
   parentId    String?
   parent      Notebook?  @relation("ParentNotebook", fields: [parentId], references: [id], onDelete: Cascade)
+  notebooks   Notebook[] @relation("ParentNotebook")
+  notes       Note[]
 }
 
 model Note {
