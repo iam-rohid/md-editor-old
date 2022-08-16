@@ -21,7 +21,10 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Get('current')
-  me(@Request() req: any, @Query() query: any) {
+  current(
+    @Request() req: any,
+    @Query() query: { include?: string | string[] },
+  ) {
     return this.usersService.findOne(req.user.userId, {
       includeProfile: !!query.include && query.include.includes('profile'),
       includeNotebooks: !!query.include && query.include.includes('notebooks'),
