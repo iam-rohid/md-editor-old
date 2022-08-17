@@ -339,7 +339,7 @@
     core-js-pure "^3.20.2"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.18.9":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.7", "@babel/runtime@^7.18.3", "@babel/runtime@^7.18.9", "@babel/runtime@^7.7.6":
   version "7.18.9"
   resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.18.9.tgz"
   integrity sha512-lkqXDcvlFT5rvEjiu6+QYO+1GXrEHRo2LOtS7E4GtX5ESIZOgepqsZBVIj6Pv+a6zqsya9VCgiK1KAK4BvJDAw==
@@ -1686,70 +1686,27 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@tauri-apps/api@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.0.2.tgz#5228720e35d50fd08df87067dc29e7306c1f7a10"
-  integrity sha512-yuNW0oeJ1/ZA7wNF1KgxhHrSu5viPVzY/UgUczzN5ptLM8dH15Juy5rEGkoHfeXGju90Y/l22hi3BtIrp/za+w==
+"@tanstack/query-core@^4.0.0-beta.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.2.1.tgz#21ff3a33f27bf038c990ea53af89cf7c7e8078fc"
+  integrity sha512-UOyOhHKLS/5i9qG2iUnZNVV3R9riJJmG9eG+hnMFIPT/oRh5UzAfjxCtBneNgPQZLDuP8y6YtRYs/n4qVAD5Ng==
 
-"@tauri-apps/cli-darwin-arm64@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/cli-darwin-arm64/-/cli-darwin-arm64-1.0.5.tgz#6fd17a8d9e0e7982b5c9887639407fdec783a744"
-  integrity sha512-oxpFb9ZeMiC3xPUJ9NsXWCnnwFSVkPbJUvDKpc9IaoDIUpsMTV72W4P0Nh0uQRbyhx4modPpstt7+ONypNVYNg==
+"@tanstack/react-location@^3.7.4":
+  version "3.7.4"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-location/-/react-location-3.7.4.tgz#0125ba5685805d232429b8df70d20cb6c2a56cec"
+  integrity sha512-6rH2vNHGr0uyeUz5ZHvWMYjeYKGgIKFzvs5749QtnS9f+FU7t7fQE0hKZAzltBZk82LT7iYbcHBRyUg2lW13VA==
+  dependencies:
+    "@babel/runtime" "^7.16.7"
+    history "^5.2.0"
 
-"@tauri-apps/cli-darwin-x64@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/cli-darwin-x64/-/cli-darwin-x64-1.0.5.tgz#6aaaadd68739c4c4f86546f3d17b2fb60a5a0c04"
-  integrity sha512-hRNYC6L9edz2dEqK33tssPylF2ti6x6udidBlGWc5GSoeEb/05qKMEA1MESQYKBG+4q+wjJvACA2vvz6AfgJ3Q==
-
-"@tauri-apps/cli-linux-arm-gnueabihf@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/cli-linux-arm-gnueabihf/-/cli-linux-arm-gnueabihf-1.0.5.tgz#d2d01c8b85ee3771656386bfda3852af8ed811da"
-  integrity sha512-hc/Jp3TtFpxB8XVkLEwWy7MNcUBlS8rNCafQBUt4KSElXB+/oGo50jPO+wd5GSMSOR59UCzH08v11P0b+sAa/w==
-
-"@tauri-apps/cli-linux-arm64-gnu@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/cli-linux-arm64-gnu/-/cli-linux-arm64-gnu-1.0.5.tgz#7ca848120c2e90b57188aaa9daee11cf29e2e2f4"
-  integrity sha512-btFlkD2PG+yzJBZzWeJmyCy8ZV+iys2Jl66Fs4g9lSi3KrBDnyfQ26RpGZb2pRfkkcVP8/x1WSfByO+Rj+PTBA==
-
-"@tauri-apps/cli-linux-arm64-musl@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/cli-linux-arm64-musl/-/cli-linux-arm64-musl-1.0.5.tgz#5ba65790849e0737f560f3ccd12f7a2a88c25b23"
-  integrity sha512-p5JFdWab2AWhfgAZW/mgOLu+YiIJXKV0NdATGmdiBgQCMmz1k/FM8iOFApCgGbo3/zkR58cJ7Z7hyWmQ07M6Pw==
-
-"@tauri-apps/cli-linux-x64-gnu@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/cli-linux-x64-gnu/-/cli-linux-x64-gnu-1.0.5.tgz#d06430c608316cb5a29ec805d4c5d078a293c3ae"
-  integrity sha512-fOXR635AXxwSO7MCfBhMLnGpcg1H83XGw9ocuyg4jjvtE8QoYPwC4ksfb5lLhDVMui9iIKY93NAK3EkQiSGGmQ==
-
-"@tauri-apps/cli-linux-x64-musl@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/cli-linux-x64-musl/-/cli-linux-x64-musl-1.0.5.tgz#813c90531f4001453e73b3ad2d4c75929412a249"
-  integrity sha512-8be4zJVkuMs427JqONhFx5Ia5zWsQ5tbZXd80C3dHNL+5/3VIOK6nGQ0iijyZSLXiE9JKEH2jp1EHB+1TVJRcw==
-
-"@tauri-apps/cli-win32-ia32-msvc@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/cli-win32-ia32-msvc/-/cli-win32-ia32-msvc-1.0.5.tgz#a3eb6f56c3f4ba35f6311e1fb31bd30e6892b316"
-  integrity sha512-WpnIfzS1e4InGhvd1IDSKC3w6kbI5c6oJgMmtkMTBlhjhiZXhZmQF4XA784A5Y13pzsbXnbNJKOp8DuPVkoTRQ==
-
-"@tauri-apps/cli-win32-x64-msvc@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/cli-win32-x64-msvc/-/cli-win32-x64-msvc-1.0.5.tgz#f1e0860166e8f86b550e35aaf22ef95d6da5a7c8"
-  integrity sha512-8iEhVD3X4LZfrlxEPOV+mAj4QrJrEqKTICiJnwmgjvhYQOOsNHzg5kca7pcBbqcgorQOBydLpfGJtxWRusVPaw==
-
-"@tauri-apps/cli@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/cli/-/cli-1.0.5.tgz#a15a61e8467be29277b72707c4189c58c33d94bf"
-  integrity sha512-vbY+MwK+xN65x0R/o16UQPxBtJl8pmzVzC0TZKokZfmeOkomoqOEOinSwznAMeyR1ZMJW+fXVgJCPvGsRQ0LGg==
-  optionalDependencies:
-    "@tauri-apps/cli-darwin-arm64" "1.0.5"
-    "@tauri-apps/cli-darwin-x64" "1.0.5"
-    "@tauri-apps/cli-linux-arm-gnueabihf" "1.0.5"
-    "@tauri-apps/cli-linux-arm64-gnu" "1.0.5"
-    "@tauri-apps/cli-linux-arm64-musl" "1.0.5"
-    "@tauri-apps/cli-linux-x64-gnu" "1.0.5"
-    "@tauri-apps/cli-linux-x64-musl" "1.0.5"
-    "@tauri-apps/cli-win32-ia32-msvc" "1.0.5"
-    "@tauri-apps/cli-win32-x64-msvc" "1.0.5"
+"@tanstack/react-query@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.2.1.tgz#1f00f03573b35a353e62fa64f904bbb0286a1808"
+  integrity sha512-w02oTOYpoxoBzD/onAGRQNeLAvggLn7WZjS811cT05WAE/4Q3br0PTp388M7tnmyYGbgOOhFq0MkhH0wIfAKqA==
+  dependencies:
+    "@tanstack/query-core" "^4.0.0-beta.1"
+    "@types/use-sync-external-store" "^0.0.3"
+    use-sync-external-store "^1.2.0"
 
 "@tsconfig/node10@^1.0.7":
   version "1.0.9"
@@ -2051,6 +2008,11 @@
   integrity sha512-X3HPWTwXRerBZS7Mo1k6vMVR1Z6zmJcDVn5O/31whe0tnjE4te6ZJSJGq1RiqHPjzPdMTfjCFogDJmwng9xHaQ==
   dependencies:
     "@types/superagent" "*"
+
+"@types/use-sync-external-store@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@types/use-sync-external-store/-/use-sync-external-store-0.0.3.tgz#b6725d5f4af24ace33b36fafd295136e75509f43"
+  integrity sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==
 
 "@types/yargs-parser@*":
   version "21.0.0"
@@ -4264,6 +4226,13 @@ hey-listen@^1.0.8:
   resolved "https://registry.yarnpkg.com/hey-listen/-/hey-listen-1.0.8.tgz#8e59561ff724908de1aa924ed6ecc84a56a9aa68"
   integrity sha512-COpmrF2NOg4TBWUJ5UVyaCU2A88wEMkUPK4hNqyCkqHbxT92BbvfjoSozkAIIm6XhicGlJHhFdullInrdhwU8Q==
 
+history@^5.2.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/history/-/history-5.3.0.tgz#1548abaa245ba47992f063a0783db91ef201c73b"
+  integrity sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==
+  dependencies:
+    "@babel/runtime" "^7.7.6"
+
 hoist-non-react-statics@^3.3.1:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
@@ -5369,6 +5338,11 @@ mkdirp@^1.0.3:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
+moment@^2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
@@ -5923,6 +5897,16 @@ react-focus-lock@^2.9.1:
     react-clientside-effect "^1.2.6"
     use-callback-ref "^1.3.0"
     use-sidecar "^1.1.2"
+
+react-hook-form@^7.34.2:
+  version "7.34.2"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.34.2.tgz#9ac6d1a309a7c4aaa369d1269357a70e9e9bf4de"
+  integrity sha512-1lYWbEqr0GW7HHUjMScXMidGvV0BE2RJV3ap2BL7G0EJirkqpccTaawbsvBO8GZaB3JjCeFBEbnEWI1P8ZoLRQ==
+
+react-icons@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.4.0.tgz#a13a8a20c254854e1ec9aecef28a95cdf24ef703"
+  integrity sha512-fSbvHeVYo/B5/L4VhB7sBA1i2tS8MkT0Hb9t2H1AVPkwGfVHLJCqyr2Py9dKMxsyM63Eng1GkdZfbWj+Fmv8Rg==
 
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
@@ -6906,6 +6890,11 @@ use-sidecar@^1.1.2:
   dependencies:
     detect-node-es "^1.1.0"
     tslib "^2.0.0"
+
+use-sync-external-store@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
+  integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
 
 util-deprecate@^1.0.1, util-deprecate@~1.0.1:
   version "1.0.2"

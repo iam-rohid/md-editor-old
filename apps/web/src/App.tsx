@@ -1,34 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import {
+  DefaultGenerics,
+  ReactLocation,
+  Route,
+  Router,
+} from "@tanstack/react-location";
+import AppLayout from "./layouts/AppLayout";
+import AuthLayout from "./layouts/AuthLayout";
+import LogInPage from "./pages/LogInPage";
+import SignUpPage from "./pages/SignUpPage";
 
-function App() {
-  const [count, setCount] = useState(0)
+const location = new ReactLocation();
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
+const routes: Route<DefaultGenerics>[] = [
+  {
+    path: "/",
+    element: <AppLayout />,
+  },
+  {
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "/login",
+        element: <LogInPage />,
+      },
+      {
+        path: "/signup",
+        element: <SignUpPage />,
+      },
+    ],
+  },
+];
 
-export default App
+const App = () => {
+  return <Router location={location} routes={routes} />;
+};
+
+export default App;
