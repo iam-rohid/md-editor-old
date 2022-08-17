@@ -84,7 +84,7 @@ const LogInPage = () => {
           )}
         </FormControl>
 
-        <Button type="submit" colorScheme="primary" w="full" mt="4">
+        <Button type="submit" colorScheme="blue" w="full" mt="4">
           Continue with Email
         </Button>
       </Box>

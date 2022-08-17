@@ -24,6 +24,7 @@ const colors = {
     900: "#3B1676",
   },
   black: "#0E1012",
+  white: "#ffffff",
 };
 
 export default colors;

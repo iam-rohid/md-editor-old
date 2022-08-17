@@ -9,8 +9,8 @@ import {
 import { Link } from "@tanstack/react-location";
 
 const AuthHeader = () => {
-  const bgColor = useColorModeValue("white", "gray.900");
-  const borderColor = useColorModeValue("gray.100", "gray.800");
+  const bgColor = useColorModeValue("white", "black");
+  const borderColor = useColorModeValue("gray.100", "gray.900");
   return (
     <Flex
       alignItems="center"
@@ -34,12 +34,12 @@ const AuthHeader = () => {
         </Link>
       </Box>
       <Flex gap="2">
-        <Link to="/login">
-          <Button variant="ghost">Log In</Button>
-        </Link>
-        <Link to="/signup">
-          <Button variant="outline">Sign Up</Button>
-        </Link>
+        <Button as={Link} to="login" variant="ghost">
+          Log In
+        </Button>
+        <Button as={Link} to="/signup" variant="outline">
+          Sign Up
+        </Button>
       </Flex>
     </Flex>
   );

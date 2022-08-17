@@ -1,9 +1,5 @@
 import { ComponentStyleConfig } from "@chakra-ui/react";
 
-const Input: ComponentStyleConfig = {
-  defaultProps: {
-    focusBorderColor: "primary.500",
-  },
-};
+const Input: ComponentStyleConfig = {};
 
 export default Input;
