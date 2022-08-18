@@ -3,6 +3,7 @@ import { basicSetup } from "codemirror";
 import { EditorView, keymap, placeholder } from "@codemirror/view";
 import { indentWithTab } from "@codemirror/commands";
 import { markdown } from "@codemirror/lang-markdown";
+import { javascript, javascriptLanguage } from "@codemirror/lang-javascript";
 import { EditorState, Compartment } from "@codemirror/state";
 
 export const languageComp = new Compartment();

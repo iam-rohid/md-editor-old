@@ -93,7 +93,7 @@ const Editor = (props: Props) => {
   return (
     <div className="flex h-full w-full flex-1 flex-col overflow-hidden bg-white dark:bg-black">
       <EditorToolbar title={data.title} onTitleChange={handleTitleChange} />
-      <div className="flex h-full w-full flex-1 overflow-hidden bg-gray-500">
+      <div className="flex h-full w-full flex-1 overflow-hidden">
         {body !== null && <SourcePane defaultValue={body} onChange={setBody} />}
       </div>
     </div>
