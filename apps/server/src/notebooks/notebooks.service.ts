@@ -1,26 +1,94 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/global/prisma/prisma.service';
 import { CreateNotebookDto } from './dto/create-notebook.dto';
 import { UpdateNotebookDto } from './dto/update-notebook.dto';
 
 @Injectable()
 export class NotebooksService {
-  create(createNotebookDto: CreateNotebookDto) {
-    return 'This action adds a new notebook';
+  constructor(private prisma: PrismaService) {}
+
+  async create(createNotebookDto: CreateNotebookDto, userId: string) {
+    try {
+      const notebook = await this.prisma.notebook.create({
+        data: {
+          author: {
+            connect: {
+              id: userId,
+            },
+          },
+          title: createNotebookDto.title,
+          description: createNotebookDto.description,
+          parent: createNotebookDto.parentId
+            ? {
+                connect: {
+                  id: createNotebookDto.parentId,
+                },
+              }
+            : undefined,
+        },
+      });
+      return notebook;
+    } catch (e) {
+      throw e;
+    }
   }
 
-  findAll() {
-    return `This action returns all notebooks`;
+  async findAll(userId: string) {
+    try {
+      return await this.prisma.notebook.findMany({
+        where: {
+          authorId: userId,
+        },
+      });
+    } catch (e) {
+      throw e;
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} notebook`;
+  async findOne(id: string, userId: string) {
+    try {
+      const notebook = await this.prisma.notebook.findUnique({
+        where: {
+          id,
+        },
+      });
+      if (notebook.authorId !== userId) {
+        throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+      }
+      return notebook;
+    } catch (e) {
+      throw e;
+    }
   }
 
-  update(id: number, updateNotebookDto: UpdateNotebookDto) {
-    return `This action updates a #${id} notebook`;
+  async update(
+    id: string,
+    updateNotebookDto: UpdateNotebookDto,
+    userId: string,
+  ) {
+    await this.findOne(id, userId);
+    return await this.prisma.notebook.update({
+      where: {
+        id,
+      },
+      data: {
+        title: updateNotebookDto.title,
+        description: updateNotebookDto.description,
+        parent: {
+          connect: {
+            id: updateNotebookDto.parentId,
+          },
+        },
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} notebook`;
+  async remove(id: string, userId: string) {
+    await this.findOne(id, userId);
+    return this.prisma.notebook.delete({
+      where: {
+        id,
+      },
+    });
   }
 }

@@ -18,8 +18,16 @@ import SidebarButton from "./SidebarButton";
 import SidebarItemGroup from "./SidebarItemGroup";
 import { Popover } from "@headlessui/react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useMutation } from "@tanstack/react-query";
+import { createNotebookAsync } from "@/api/notebookApi";
 
 const PrimarySidebar = () => {
+  const createNotebookMutation = useMutation(createNotebookAsync, {
+    onSettled(data, error) {
+      console.log({ data, error });
+    },
+  });
+
   const router = useRouter();
   return (
     <div
@@ -81,6 +89,12 @@ const PrimarySidebar = () => {
             {
               label: "Add Notebook",
               icon: <MdAdd />,
+              onClick: () => {
+                createNotebookMutation.mutate({
+                  title: "My Notebook",
+                });
+                console.log("Creating Notebook");
+              },
             },
           ]}
         >

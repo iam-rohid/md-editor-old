@@ -1,11 +1,3 @@
-import {
-  Box,
-  Flex,
-  Text,
-  Icon,
-  IconButton,
-  useColorModeValue,
-} from "@chakra-ui/react";
 import moment from "moment";
 import { MdAdd } from "react-icons/md";
 import NoteItem from "./NoteItem";

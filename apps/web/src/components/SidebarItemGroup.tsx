@@ -26,6 +26,7 @@ const SidebarItemGroup = (props: SidebarNavGroupProps) => {
                   key={i}
                   type="button"
                   className="flex h-7 w-7 items-center justify-center rounded-md text-gray-600 hover:bg-gray-100 hover:text-black active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white dark:active:bg-gray-700"
+                  onClick={action.onClick}
                 >
                   <span className="text-xl">{action.icon}</span>
                 </button>
