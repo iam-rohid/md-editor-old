@@ -24,13 +24,14 @@ type LogInForm = {
 const LogInPage = () => {
   const formData = useForm<LogInForm>();
   const [showPassword, setShowPassword] = useBoolean(false);
+
   const onSubmit = (value: LogInForm) => {
     console.log("onSubmit", value);
   };
 
   return (
-    <Container maxW="md" my="16">
-      <Heading mb="8" size="lg">
+    <Container maxW="sm" my="16">
+      <Heading mb="8" size="lg" textAlign="center">
         Log In
       </Heading>
 

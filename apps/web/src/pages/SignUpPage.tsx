@@ -32,8 +32,8 @@ const SignUpPage = () => {
   };
 
   return (
-    <Container maxW="md" my="16">
-      <Heading mb="8" size="lg">
+    <Container maxW="sm" my="16">
+      <Heading mb="8" size="lg" textAlign="center">
         Sign Up
       </Heading>
 
