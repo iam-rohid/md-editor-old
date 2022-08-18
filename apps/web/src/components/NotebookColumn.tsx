@@ -52,7 +52,7 @@ export default NotebookColumn;
 
 const Header = () => {
   return (
-    <div className="flex h-12 w-full items-center border-b border-gray-50 px-2 dark:border-gray-900">
+    <div className="flex h-12 w-full items-center border-b border-gray-100 px-2 dark:border-gray-800">
       <p className="flex-1 truncate px-2 text-lg font-bold">All Notes</p>
       <div className="flex items-center gap-1">
         <button

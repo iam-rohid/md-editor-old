@@ -3,13 +3,13 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Navigate, Outlet } from "@tanstack/react-location";
 
 const AppLayout = () => {
-  const { user, isLoading } = useAuth();
+  const { status } = useAuth();
 
-  if (isLoading) {
+  if (status === "loading") {
     return null;
   }
 
-  if (!user) {
+  if (status === "error") {
     return <Navigate to="/login" replace />;
   }
 

@@ -9,13 +9,13 @@ type Props = {
 
 const AuthLayout = (props: Props) => {
   const { children } = props;
-  const { user, isLoading } = useAuth();
+  const { status } = useAuth();
 
-  if (isLoading) {
+  if (status === "loading") {
     return null;
   }
 
-  if (user) {
+  if (status === "success") {
     return <Navigate to="/" replace />;
   }
 
