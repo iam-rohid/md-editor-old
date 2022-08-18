@@ -23,7 +23,7 @@ const CreateNotebookDialog = (props: Props) => {
       queryClient.invalidateQueries([NOTEBOOKS_KEY]);
       formData.reset();
       onClose();
-      navigate({ to: `notebooks/${data.id}` });
+      navigate({ to: `notebook/${data.id}` });
     },
   });
 

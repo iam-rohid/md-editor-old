@@ -1,5 +1,5 @@
 import { getNotebooksAsync } from "@/api/notebookApi";
-import { Link, useRouter } from "@tanstack/react-location";
+import { Link } from "@tanstack/react-location";
 import { useQuery } from "@tanstack/react-query";
 import { MdAdd, MdFolder } from "react-icons/md";
 import SidebarButton from "./SidebarButton";
@@ -12,7 +12,6 @@ import { NOTEBOOKS_KEY } from "@/constants/keys";
 const NotebooksList = () => {
   const [isOpen, setIsOpen] = useState(false);
   const notebooks = useQuery([NOTEBOOKS_KEY], getNotebooksAsync);
-  const router = useRouter();
 
   return (
     <>
@@ -37,14 +36,14 @@ const NotebooksList = () => {
           </div>
         ) : (
           notebooks.data?.map((notebook) => (
-            <Link to={`notebooks/${notebook.id}`} key={notebook.id}>
-              <SidebarButton
-                icon={<MdFolder />}
-                label={notebook.title}
-                isActive={router.state.location.pathname.startsWith(
-                  `/notebooks/${notebook.id}`
-                )}
-              />
+            <Link to={`notebook/${notebook.id}`} key={notebook.id}>
+              {({ isActive }) => (
+                <SidebarButton
+                  icon={<MdFolder />}
+                  label={notebook.title}
+                  isActive={isActive}
+                />
+              )}
             </Link>
           ))
         )}

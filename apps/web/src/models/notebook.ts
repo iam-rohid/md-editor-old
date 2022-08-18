@@ -20,3 +20,8 @@ export type CreateNotebook = {
   description?: string;
   parentId?: string;
 };
+export type UpdateNotebook = {
+  title?: string;
+  description?: string;
+  parentId?: string;
+};

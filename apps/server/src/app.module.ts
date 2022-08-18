@@ -5,7 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { GlobalModule } from './global/global.module';
-import { NotebooksModule } from './notebooks/notebooks.module';
+import { NotebooksModule } from './notebook/notebooks.module';
 import { NotesModule } from './notes/notes.module';
 import { ConfigModule } from '@nestjs/config';
 

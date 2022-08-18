@@ -1,4 +1,4 @@
-import { Link, useRouter } from "@tanstack/react-location";
+import { Link } from "@tanstack/react-location";
 import { MdList, MdSearch, MdSettings, MdStar } from "react-icons/md";
 import SidebarButton from "./SidebarButton";
 import SidebarItemGroup from "./SidebarItemGroup";
@@ -7,7 +7,6 @@ import NotebooksList from "./NotebooksList";
 import TagsList from "./TagsList";
 
 const PrimarySidebar = () => {
-  const router = useRouter();
   return (
     <div
       className="flex flex-col overflow-hidden border-r border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-900"
@@ -20,25 +19,31 @@ const PrimarySidebar = () => {
         <SidebarItemGroup>
           <SidebarButton icon={<MdSearch />} label="Search" />
           <Link to="all">
-            <SidebarButton
-              icon={<MdList />}
-              label="All Notes"
-              isActive={router.state.location.pathname.startsWith("/all")}
-            />
+            {({ isActive }) => (
+              <SidebarButton
+                icon={<MdList />}
+                label="All Notes"
+                isActive={isActive}
+              />
+            )}
           </Link>
           <Link to="favorites">
-            <SidebarButton
-              icon={<MdStar />}
-              label="Favorites"
-              isActive={router.state.location.pathname.startsWith("/favorites")}
-            />
+            {({ isActive }) => (
+              <SidebarButton
+                icon={<MdStar />}
+                label="Favorites"
+                isActive={isActive}
+              />
+            )}
           </Link>
           <Link to="settings">
-            <SidebarButton
-              icon={<MdSettings />}
-              label="Settings"
-              isActive={router.state.location.pathname.startsWith("/settings")}
-            />
+            {({ isActive }) => (
+              <SidebarButton
+                icon={<MdSettings />}
+                label="Settings"
+                isActive={isActive}
+              />
+            )}
           </Link>
         </SidebarItemGroup>
         <NotebooksList />

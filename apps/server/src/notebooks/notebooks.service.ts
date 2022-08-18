@@ -7,13 +7,13 @@ import { UpdateNotebookDto } from './dto/update-notebook.dto';
 export class NotebooksService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createNotebookDto: CreateNotebookDto, userId: string) {
+  async create(createNotebookDto: CreateNotebookDto, authorId: string) {
     try {
       const notebook = await this.prisma.notebook.create({
         data: {
           author: {
             connect: {
-              id: userId,
+              id: authorId,
             },
           },
           title: createNotebookDto.title,
@@ -33,12 +33,12 @@ export class NotebooksService {
     }
   }
 
-  async findAll(userId: string) {
-    console.log(userId);
+  async findAll(authorId: string) {
+    console.log(authorId);
     try {
       return await this.prisma.notebook.findMany({
         where: {
-          authorId: userId,
+          authorId: authorId,
         },
       });
     } catch (e) {
@@ -46,14 +46,14 @@ export class NotebooksService {
     }
   }
 
-  async findOne(id: string, userId: string) {
+  async findOne(id: string, authorId: string) {
     try {
       const notebook = await this.prisma.notebook.findUnique({
         where: {
           id,
         },
       });
-      if (notebook.authorId !== userId) {
+      if (notebook.authorId !== authorId) {
         throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
       }
       return notebook;
@@ -65,9 +65,9 @@ export class NotebooksService {
   async update(
     id: string,
     updateNotebookDto: UpdateNotebookDto,
-    userId: string,
+    authorId: string,
   ) {
-    await this.findOne(id, userId);
+    await this.findOne(id, authorId);
     return await this.prisma.notebook.update({
       where: {
         id,
@@ -84,8 +84,8 @@ export class NotebooksService {
     });
   }
 
-  async remove(id: string, userId: string) {
-    await this.findOne(id, userId);
+  async remove(id: string, authorId: string) {
+    await this.findOne(id, authorId);
     return this.prisma.notebook.delete({
       where: {
         id,

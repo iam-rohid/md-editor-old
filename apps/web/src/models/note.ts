@@ -6,7 +6,7 @@ export interface Note {
   createdAt: string;
   updatedAt: string;
   title: string;
-  body: string;
+  body?: string;
   authorId: string;
   author?: User;
   parentId?: string;
@@ -15,6 +15,12 @@ export interface Note {
 
 export type CreateNote = {
   title: string;
+  body?: string;
+  parentId?: string;
+};
+
+export type UpdateNote = {
+  title?: string;
   body?: string;
   parentId?: string;
 };

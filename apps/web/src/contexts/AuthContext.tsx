@@ -28,8 +28,6 @@ const AuthProvider = (props: Props) => {
     }
   );
 
-  console.log({ data });
-
   const onLogOut = useCallback(() => {
     localStorage.clear();
     refetch();
