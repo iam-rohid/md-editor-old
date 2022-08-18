@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import { createContext, ReactNode, useCallback, useContext } from "react";
 
 type AuthContextType = {
-  isLoading: boolean;
   user?: User;
   onLogOut: () => void;
   setToken: (accessToken: string) => void;
@@ -20,7 +19,7 @@ type Props = {
 
 const AuthProvider = (props: Props) => {
   const { children } = props;
-  const { data, isLoading, refetch, status } = useQuery(
+  const { data, refetch, status } = useQuery(
     ["currentUser"],
     getCurrentUserAsync,
     {
@@ -28,6 +27,8 @@ const AuthProvider = (props: Props) => {
       refetchOnWindowFocus: false,
     }
   );
+
+  console.log({ data });
 
   const onLogOut = useCallback(() => {
     localStorage.clear();
@@ -43,7 +44,6 @@ const AuthProvider = (props: Props) => {
   );
 
   const contextValue: AuthContextType = {
-    isLoading,
     user: data,
     onLogOut,
     setToken,
