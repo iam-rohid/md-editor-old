@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import classNames from "classnames";
+
 export type SidebarNavProps = {
   label: string;
   icon: ReactNode;

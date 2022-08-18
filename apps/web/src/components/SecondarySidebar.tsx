@@ -1,18 +1,19 @@
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { ReactNode } from "react";
 import NotebookColumn from "./NotebookColumn";
 
-const SecondarySidebar = () => {
-  const bgColor = useColorModeValue("white", "black");
-  const borderColor = useColorModeValue("gray.100", "gray.900");
+type Props = {
+  children: ReactNode;
+};
+
+const SecondarySidebar = (props: Props) => {
+  const { children } = props;
   return (
-    <Box
+    <div
+      className="border-r border-gray-50 bg-white dark:border-gray-900 dark:bg-black"
       style={{ width: 260 }}
-      borderRightWidth={1}
-      borderColor={borderColor}
-      bgColor={bgColor}
     >
-      <NotebookColumn />
-    </Box>
+      {children}
+    </div>
   );
 };
 

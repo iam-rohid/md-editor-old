@@ -1,38 +1,29 @@
-import { Text, Button, ButtonProps } from "@chakra-ui/react";
+import classNames from "classnames";
 
-type NoteItemProps = ButtonProps & {
+type NoteItemProps = {
   title: string;
   subtitle: string;
   isActive?: boolean;
 };
 
 const NoteItem = (props: NoteItemProps) => {
-  const { title, subtitle, ...rest } = props;
+  const { title, subtitle, isActive } = props;
   return (
-    <Button
-      {...rest}
-      w="full"
-      variant="ghost"
-      py="2"
-      h="fit-content"
-      px="2.5"
-      overflow="hidden"
-      display="block"
-      textAlign="left"
+    <div
+      className={classNames(
+        "flex cursor-pointer select-none flex-col items-center gap-1 rounded-md p-2",
+        {
+          "bg-gray-200 dark:bg-gray-700": isActive,
+          "hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700":
+            !isActive,
+        }
+      )}
     >
-      <Text textOverflow="ellipsis" overflow="hidden" mb="0.5">
-        {title}
-      </Text>
-      <Text
-        fontWeight="normal"
-        fontSize="sm"
-        textOverflow="ellipsis"
-        overflow="hidden"
-        w="full"
-      >
+      <p className="w-full truncate leading-4">{title}</p>
+      <p className="w-full truncate text-sm leading-4 text-gray-600 dark:text-gray-300">
         {subtitle}
-      </Text>
-    </Button>
+      </p>
+    </div>
   );
 };
 

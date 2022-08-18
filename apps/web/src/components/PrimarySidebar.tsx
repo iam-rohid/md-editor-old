@@ -1,6 +1,6 @@
 import SITE from "@/constants/SITE";
 import { useTheme } from "@/contexts/ThemeContext";
-import { Link } from "@tanstack/react-location";
+import { Link, useRouter } from "@tanstack/react-location";
 import {
   MdAdd,
   MdDarkMode,
@@ -17,6 +17,7 @@ import SidebarButton from "./SidebarButton";
 import SidebarItemGroup from "./SidebarItemGroup";
 
 const PrimarySidebar = () => {
+  const router = useRouter();
   return (
     <div
       className="flex flex-col overflow-hidden bg-gray-50 dark:bg-gray-900"
@@ -28,9 +29,27 @@ const PrimarySidebar = () => {
       <nav className="h-full w-full flex-1 overflow-y-auto p-2">
         <SidebarItemGroup>
           <SidebarButton icon={<MdSearch />} label="Search" />
-          <SidebarButton icon={<MdList />} label="All Notes" isActive />
-          <SidebarButton icon={<MdStar />} label="Favorites" />
-          <SidebarButton icon={<MdSettings />} label="Settings" />
+          <Link to="all">
+            <SidebarButton
+              icon={<MdList />}
+              label="All Notes"
+              isActive={router.state.location.pathname.startsWith("/all")}
+            />
+          </Link>
+          <Link to="favorites">
+            <SidebarButton
+              icon={<MdStar />}
+              label="Favorites"
+              isActive={router.state.location.pathname.startsWith("/favorites")}
+            />
+          </Link>
+          <Link to="settings">
+            <SidebarButton
+              icon={<MdSettings />}
+              label="Settings"
+              isActive={router.state.location.pathname.startsWith("/settings")}
+            />
+          </Link>
         </SidebarItemGroup>
         <SidebarItemGroup
           title="Notebooks"
@@ -41,7 +60,15 @@ const PrimarySidebar = () => {
             },
           ]}
         >
-          <SidebarButton icon={<MdFolder />} label="Daily logs" />
+          <Link to={`notebook/${12345}`}>
+            <SidebarButton
+              icon={<MdFolder />}
+              label="Daily logs"
+              isActive={router.state.location.pathname.startsWith(
+                `/notebook/${12345}`
+              )}
+            />
+          </Link>
           <SidebarButton icon={<MdFolder />} label="My Articles" />
           <SidebarButton icon={<MdFolder />} label="Projects" />
         </SidebarItemGroup>
@@ -54,7 +81,15 @@ const PrimarySidebar = () => {
             },
           ]}
         >
-          <SidebarButton icon={<MdTag />} label="Article" />
+          <Link to={`tag/${12345}`}>
+            <SidebarButton
+              icon={<MdTag />}
+              label="Article"
+              isActive={router.state.location.pathname.startsWith(
+                `/tag/${12345}`
+              )}
+            />
+          </Link>
           <SidebarButton icon={<MdTag />} label="Reminder" />
           <SidebarButton icon={<MdTag />} label="Place" />
           <SidebarButton icon={<MdTag />} label="Gym" />
@@ -69,7 +104,7 @@ export default PrimarySidebar;
 const Header = () => {
   const { colorScheme, toggleColorScheme } = useTheme();
   return (
-    <div className="flex h-14 w-full items-center px-2">
+    <div className="flex h-12 w-full items-center px-2">
       <Link to="/" className="flex-1 truncate px-2 text-lg font-bold uppercase">
         {SITE.NAME}
       </Link>
