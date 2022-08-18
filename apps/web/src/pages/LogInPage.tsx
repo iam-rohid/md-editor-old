@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import classNames from "classnames";
+import { useMutation } from "@tanstack/react-query";
+import { signInWithEmailPasswordAsync } from "@/api/authApi";
+import { useAuth } from "@/contexts/AuthContext";
 
 type LogInForm = {
   email: string;
@@ -10,10 +13,19 @@ type LogInForm = {
 
 const LogInPage = () => {
   const formData = useForm<LogInForm>();
+  const { setToken } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const logInMutation = useMutation(signInWithEmailPasswordAsync, {
+    onSuccess: (data) => {
+      setToken(data.accessToken);
+    },
+  });
 
   const onSubmit = (value: LogInForm) => {
-    console.log("onSubmit", value);
+    logInMutation.mutate({
+      email: value.email.toLowerCase().trim(),
+      password: value.password,
+    });
   };
 
   return (
@@ -95,6 +107,12 @@ const LogInPage = () => {
         >
           Log In
         </button>
+
+        {!!logInMutation.error && (
+          <p className="mt-4 rounded-md border  border-red-500 px-4 py-2 text-red-500">
+            {(logInMutation.error as any).message}
+          </p>
+        )}
       </form>
     </div>
   );

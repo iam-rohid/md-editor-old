@@ -1,17 +1,15 @@
+import { getCurrentUserAsync } from "@/api/authApi";
+import { ACCESS_TOKEN_KEY } from "@/constants/keys";
 import { User } from "@/models/user";
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { useQuery } from "@tanstack/react-query";
+import { createContext, ReactNode, useContext } from "react";
 
 type AuthContextType = {
   isLoading: boolean;
-  user: User | null;
-  setUser: (user: User | null) => void;
+  user?: User;
   onLogOut: () => void;
+  setToken: (accessToken: string) => void;
+  error: unknown;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -22,20 +20,31 @@ type Props = {
 
 const AuthProvider = (props: Props) => {
   const { children } = props;
-  const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState<User | null>({});
+  const { data, error, isLoading, refetch } = useQuery(
+    ["currentUser"],
+    getCurrentUserAsync,
+    {
+      onSettled(data, error) {
+        console.log({ data, error });
+      },
+      retry: false,
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const onLogOut = () => {};
 
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
+  const setToken: AuthContextType["setToken"] = (accessToken) => {
+    localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+    refetch();
+  };
 
   const contextValue: AuthContextType = {
     isLoading,
-    user,
+    user: data,
     onLogOut,
-    setUser,
+    setToken,
+    error,
   };
 
   return (

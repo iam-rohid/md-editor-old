@@ -19,6 +19,22 @@ const App = () => {
   const routes = useMemo(() => {
     return [
       {
+        path: "login",
+        element: (
+          <AuthLayout>
+            <LogInPage />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "signup",
+        element: (
+          <AuthLayout>
+            <SignUpPage />
+          </AuthLayout>
+        ),
+      },
+      {
         path: "/",
         element: <AppLayout />,
         children: [
@@ -41,19 +57,6 @@ const App = () => {
           {
             path: "tag/:id",
             element: <Tag />,
-          },
-        ],
-      },
-      {
-        element: <AuthLayout />,
-        children: [
-          {
-            path: "/login",
-            element: <LogInPage />,
-          },
-          {
-            path: "/signup",
-            element: <SignUpPage />,
           },
         ],
       },
