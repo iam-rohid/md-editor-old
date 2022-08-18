@@ -16,15 +16,15 @@ const AppLayout = () => {
   }
 
   return (
-    <Flex flexDir="column" h="100vh" w="100vw" overflow="hidden">
-      <Flex w="full" h="full" flex={1}>
+    <div className="flex h-screen w-screen flex-col overflow-hidden">
+      <div className="flex h-full w-full flex-1 flex-row">
         <PrimarySidebar />
         <SecondarySidebar />
-        <Box flex={1} w="full" h="full">
+        <div className="relative h-full w-full flex-1">
           <Outlet />
-        </Box>
-      </Flex>
-    </Flex>
+        </div>
+      </div>
+    </div>
   );
 };
 

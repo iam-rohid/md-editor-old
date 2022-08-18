@@ -23,7 +23,7 @@ type Props = {
 const AuthProvider = (props: Props) => {
   const { children } = props;
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>({});
 
   const onLogOut = () => {};
 

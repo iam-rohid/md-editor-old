@@ -9,43 +9,40 @@ import {
 import moment from "moment";
 import { MdAdd } from "react-icons/md";
 import NoteItem from "./NoteItem";
-import SidebarNav from "./SidebarNav";
-import SidebarNavGroup from "./SidebarNavGroup";
+import SidebarItemGroup from "./SidebarItemGroup";
 
 const NotebookColumn = () => {
   return (
     <Flex h="full" flexDir="column" overflow="hidden">
       <Header />
       <Box flex={1} overflowY="auto">
-        <SidebarNav>
-          <SidebarNavGroup>
-            <NoteItem
-              title="Untitled"
-              subtitle={`${moment().format("MMM DD, YY")}`}
-            />
-            <NoteItem
-              title="Untitled"
-              subtitle={`${moment().format("MMM DD, YY")}`}
-            />
-            <NoteItem
-              title="Untitled"
-              subtitle={`${moment().format("MMM DD, YY")}`}
-              isActive
-            />
-            <NoteItem
-              title="Untitled"
-              subtitle={`${moment().format("MMM DD, YY")}`}
-            />
-            <NoteItem
-              title="Untitled"
-              subtitle={`${moment().format("MMM DD, YY")}`}
-            />
-            <NoteItem
-              title="Untitled"
-              subtitle={`${moment().format("MMM DD, YY")}`}
-            />
-          </SidebarNavGroup>
-        </SidebarNav>
+        <SidebarItemGroup>
+          <NoteItem
+            title="Untitled"
+            subtitle={`${moment().format("MMM DD, YY")}`}
+          />
+          <NoteItem
+            title="Untitled"
+            subtitle={`${moment().format("MMM DD, YY")}`}
+          />
+          <NoteItem
+            title="Untitled"
+            subtitle={`${moment().format("MMM DD, YY")}`}
+            isActive
+          />
+          <NoteItem
+            title="Untitled"
+            subtitle={`${moment().format("MMM DD, YY")}`}
+          />
+          <NoteItem
+            title="Untitled"
+            subtitle={`${moment().format("MMM DD, YY")}`}
+          />
+          <NoteItem
+            title="Untitled"
+            subtitle={`${moment().format("MMM DD, YY")}`}
+          />
+        </SidebarItemGroup>
       </Box>
     </Flex>
   );
