@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { ProfilesService } from 'src/profiles/profiles.service';
 import { UsersService } from 'src/users/users.service';
 import { LogInDto } from './dto/login.dto';
 import { SignUpDto } from './dto/signup.dto';
@@ -12,7 +11,6 @@ import { ConfigService } from '@nestjs/config';
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private profilesService: ProfilesService,
     private jwtService: JwtService,
     private config: ConfigService,
   ) {}
@@ -23,20 +21,14 @@ export class AuthService {
       const user = await this.usersService.create({
         email: signUpDto.email,
         password: hashedPassword,
-      });
-      const profile = await this.profilesService.create({
         fullname: signUpDto.fullname,
-        userId: user.id,
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...safeUser } = user;
       const accessToken = await this.signToken(user);
       return {
         accessToken,
-        user: {
-          ...safeUser,
-          profile,
-        },
+        user: safeUser,
       };
     } catch (e) {
       throw e;
@@ -46,7 +38,6 @@ export class AuthService {
   async logIn(logInDto: LogInDto) {
     try {
       const user = await this.usersService.findOneByEmail(logInDto.email, {
-        includeProfile: true,
         keepPassword: true,
       });
 

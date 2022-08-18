@@ -7,6 +7,8 @@ import {
 } from "@tanstack/react-location";
 import AppLayout from "./layouts/AppLayout";
 import AuthLayout from "./layouts/AuthLayout";
+import All from "./pages/All";
+import Favorites from "./pages/Favorites";
 import LogInPage from "./pages/LogInPage";
 import Note from "./pages/Note";
 import Notebook from "./pages/Notebook";
@@ -45,12 +47,12 @@ const routes: Route<DefaultGenerics>[] = [
     children: [
       {
         path: "all",
-        element: <Notebook />,
+        element: <All />,
         children: noteRoutes,
       },
       {
         path: "favorites",
-        element: <Notebook />,
+        element: <Favorites />,
         children: noteRoutes,
       },
       {

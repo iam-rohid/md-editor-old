@@ -21,21 +21,12 @@ model User {
   updatedAt DateTime   @updatedAt
   email     String     @unique
   password  String
+  fullname  String
+  bio       String?
+  photoURL  String?
   role      Role       @default(USER)
-  profile   Profile?
   notebooks Notebook[]
   notes     Note[]
-}
-
-model Profile {
-  id         String   @id @default(cuid())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  fullname   String
-  bio        String?
-  profileURL String?
-  userId     String   @unique
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Notebook {

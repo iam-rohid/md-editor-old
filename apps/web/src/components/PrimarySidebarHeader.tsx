@@ -38,10 +38,10 @@ const PrimarySidebarHeader = () => {
               <Popover.Panel className="absolute z-20 w-64 overflow-hidden rounded-md border border-gray-100 bg-white shadow-2xl dark:border-gray-800 dark:bg-black">
                 <div className="flex items-center gap-2 border-b border-gray-100 p-2 dark:border-gray-800">
                   <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-md bg-gray-50 dark:bg-gray-900">
-                    {user.profile?.profileURL ? (
+                    {user.photoURL ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
-                        src={user.profile?.profileURL}
+                        src={user.photoURL}
                         alt="Profile Photo"
                         className="absolute inset-0 object-cover"
                       />
@@ -51,7 +51,7 @@ const PrimarySidebarHeader = () => {
                   </div>
                   <div className="flex flex-1 flex-col gap-1 overflow-hidden">
                     <p className="truncate font-medium leading-4">
-                      {user.profile?.fullname}
+                      {user.fullname}
                     </p>
                     <p className="truncate text-sm leading-4 text-gray-600 dark:text-gray-300">
                       {user.email}

@@ -1,5 +1,5 @@
 import { createNoteAsync, getNotesAsync } from "@/api/noteApi";
-import { Link, useNavigate, useRouter } from "@tanstack/react-location";
+import { Link, useMatch, useNavigate } from "@tanstack/react-location";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import moment from "moment";
 import { useCallback } from "react";
@@ -11,8 +11,10 @@ import Spinner from "./Spinner";
 const NotebookColumn = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const notes = useQuery(["notes", "all"], ({ queryKey }) =>
-    getNotesAsync(queryKey[1])
+  const match = useMatch();
+  const notes = useQuery(
+    ["notes", match.params["notebookId"]],
+    ({ queryKey }) => getNotesAsync(queryKey[1])
   );
 
   const createNoteMutation = useMutation(createNoteAsync, {

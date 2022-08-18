@@ -3,7 +3,29 @@ import { API_URL } from "@/constants/urls";
 import { CreateNote, Note, UpdateNote } from "@/models/note";
 import axios from "axios";
 
+export const getAllNotesAsync = async (): Promise<Note[]> => {
+  const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+  const { data } = await axios.get(`${API_URL}/notes`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return data;
+};
+export const getFavoritesNotesAsync = async (): Promise<Note[]> => {
+  const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+  const { data } = await axios.get(`${API_URL}/notes`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return data;
+};
+
 export const getNotesAsync = async (id: string): Promise<Note[]> => {
+  console.log({ id });
   const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
   const { data } = await axios.get(`${API_URL}/notes`, {
     headers: {

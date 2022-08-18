@@ -13,6 +13,7 @@ export class UsersService {
         data: {
           email: createUserDto.email,
           password: createUserDto.password,
+          fullname: createUserDto.fullname,
         },
       });
       return user;
@@ -41,22 +42,10 @@ export class UsersService {
     id: string,
     options?: {
       keepPassword?: boolean;
-      includeProfile?: boolean;
-      includeNotebooks?: boolean;
-      includeNotes?: boolean;
     },
   ) {
     try {
-      const user = await this.prisma.user.findUnique({
-        where: {
-          id,
-        },
-        include: {
-          profile: options?.includeProfile === true,
-          notebooks: options?.includeNotebooks === true,
-          notes: options?.includeNotes === true,
-        },
-      });
+      const user = await this.prisma.user.findUnique({ where: { id } });
       if (!user) {
         throw new HttpException('User not found', HttpStatus.NOT_FOUND);
       }
@@ -83,22 +72,10 @@ export class UsersService {
     email: string,
     options?: {
       keepPassword?: boolean;
-      includeProfile?: boolean;
-      includeNotebooks?: boolean;
-      includeNotes?: boolean;
     },
   ): Promise<User> {
     try {
-      const user = await this.prisma.user.findUnique({
-        where: {
-          email,
-        },
-        include: {
-          profile: options?.includeProfile === true,
-          notebooks: options?.includeNotebooks === true,
-          notes: options?.includeNotes === true,
-        },
-      });
+      const user = await this.prisma.user.findUnique({ where: { email } });
 
       if (!user) {
         throw new HttpException('User not found', HttpStatus.NOT_FOUND);
