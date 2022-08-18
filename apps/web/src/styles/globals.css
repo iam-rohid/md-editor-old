@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input,
+button,
+a {
+  @apply outline-primary-500;
+}
+
+body {
+  @apply bg-white dark:bg-black text-black dark:text-white;
+}
+
+.dark {
+  color-scheme: dark;
+}

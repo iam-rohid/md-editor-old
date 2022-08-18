@@ -1,21 +1,8 @@
-import {
-  Box,
-  Button,
-  Container,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Heading,
-  Icon,
-  IconButton,
-  Input,
-  InputGroup,
-  InputRightElement,
-  useBoolean,
-} from "@chakra-ui/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+import classNames from "classnames";
+
 type LogInForm = {
   email: string;
   password: string;
@@ -23,73 +10,93 @@ type LogInForm = {
 
 const LogInPage = () => {
   const formData = useForm<LogInForm>();
-  const [showPassword, setShowPassword] = useBoolean(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = (value: LogInForm) => {
     console.log("onSubmit", value);
   };
 
   return (
-    <Container maxW="sm" my="16">
-      <Heading mb="8" size="lg" textAlign="center">
-        Log In
-      </Heading>
+    <div className="mx-auto my-16 max-w-md px-4">
+      <h1 className="mb-16 text-center text-3xl font-bold">Log In</h1>
 
-      <Box as="form" onSubmit={formData.handleSubmit(onSubmit)}>
-        <FormControl mb="4" isInvalid={!!formData.formState.errors.email}>
-          <FormLabel>Email</FormLabel>
-          <Input
+      <form onSubmit={formData.handleSubmit(onSubmit)}>
+        <div className="mb-4 flex flex-col gap-2">
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
             type="email"
             placeholder="john@example.com"
             {...formData.register("email", {
               required: "Email is required",
             })}
+            className={classNames(
+              "w-full rounded-md border bg-transparent px-4 py-2 placeholder:text-gray-500 dark:placeholder:text-gray-500",
+              {
+                "border-red-500 dark:border-red-500":
+                  !!formData.formState.errors.email,
+                "border-gray-100 hover:border-gray-200 dark:border-gray-800 dark:hover:border-gray-700":
+                  !formData.formState.errors.email,
+              }
+            )}
           />
           {!!formData.formState.errors.email && (
-            <FormErrorMessage>
+            <p className="text-sm text-red-500">
               {formData.formState.errors.email.message}
-            </FormErrorMessage>
+            </p>
           )}
-        </FormControl>
+        </div>
 
-        <FormControl mb="4" isInvalid={!!formData.formState.errors.password}>
-          <FormLabel>Password</FormLabel>
-          <InputGroup>
-            <Input
+        <div className="mb-4 flex flex-col gap-2">
+          <label htmlFor="password">Password</label>
+          <div className="relative">
+            <input
+              id="password"
               type={showPassword ? "text" : "password"}
               placeholder="••••••••"
               {...formData.register("password", {
                 required: "Password is required",
               })}
-            />
-            <InputRightElement>
-              <IconButton
-                size="sm"
-                aria-label="Toggle Show Password"
-                variant="ghost"
-                icon={
-                  <Icon
-                    as={showPassword ? MdVisibilityOff : MdVisibility}
-                    fontSize="xl"
-                  />
+              className={classNames(
+                "w-full rounded-md border bg-transparent px-4 py-2 placeholder:text-gray-500 dark:placeholder:text-gray-500",
+                {
+                  "border-red-500 dark:border-red-500":
+                    !!formData.formState.errors.password,
+                  "border-gray-100 hover:border-gray-200 dark:border-gray-800 dark:hover:border-gray-700":
+                    !formData.formState.errors.password,
                 }
-                onClick={setShowPassword.toggle}
-              />
-            </InputRightElement>
-          </InputGroup>
+              )}
+            />
+            <div className="absolute right-0 top-0 flex aspect-square h-full items-center justify-center">
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="rounded-md p-1.5 text-gray-600 hover:bg-gray-100 hover:text-black active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-900 dark:hover:text-white dark:active:bg-gray-800"
+              >
+                {showPassword ? (
+                  <MdVisibilityOff className="text-xl" />
+                ) : (
+                  <MdVisibility className="text-xl" />
+                )}
+              </button>
+            </div>
+          </div>
 
           {!!formData.formState.errors.password && (
-            <FormErrorMessage>
+            <p className="text-sm text-red-500">
               {formData.formState.errors.password.message}
-            </FormErrorMessage>
+            </p>
           )}
-        </FormControl>
+        </div>
 
-        <Button type="submit" colorScheme="blue" w="full" mt="4">
-          Continue with Email
-        </Button>
-      </Box>
-    </Container>
+        <button
+          type="submit"
+          className="mt-4 w-full rounded-md bg-primary-500 py-2 px-4 font-medium text-white outline-offset-2 hover:bg-primary-600 active:bg-primary-700"
+        >
+          Log In
+        </button>
+      </form>
+    </div>
   );
 };
 

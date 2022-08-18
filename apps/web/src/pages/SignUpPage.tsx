@@ -1,22 +1,9 @@
-import {
-  Box,
-  Button,
-  Container,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Heading,
-  Icon,
-  IconButton,
-  Input,
-  InputGroup,
-  InputRightElement,
-  useBoolean,
-} from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+import classNames from "classnames";
+import { useState } from "react";
 
-type LogInForm = {
+type SignUpForm = {
   name: string;
   email: string;
   password: string;
@@ -24,55 +11,75 @@ type LogInForm = {
 };
 
 const SignUpPage = () => {
-  const formData = useForm<LogInForm>();
-  const [showPassword, setShowPassword] = useBoolean(false);
+  const formData = useForm<SignUpForm>();
+  const [showPassword, setShowPassword] = useState(false);
 
-  const onSubmit = (value: LogInForm) => {
+  const onSubmit = (value: SignUpForm) => {
     console.log("onSubmit", value);
   };
 
   return (
-    <Container maxW="sm" my="16">
-      <Heading mb="8" size="lg" textAlign="center">
-        Sign Up
-      </Heading>
+    <div className="mx-auto my-16 max-w-md px-4">
+      <h1 className="mb-16 text-center text-3xl font-bold">Sign Up</h1>
 
-      <Box as="form" onSubmit={formData.handleSubmit(onSubmit)}>
-        <FormControl mb="4" isInvalid={!!formData.formState.errors.name}>
-          <FormLabel>Name</FormLabel>
-          <Input
+      <form onSubmit={formData.handleSubmit(onSubmit)}>
+        <div className="mb-4 flex flex-col gap-2">
+          <label htmlFor="name">Name</label>
+          <input
+            id="name"
+            type="text"
             placeholder="John Doe"
             {...formData.register("name", {
               required: "Name is required",
             })}
+            className={classNames(
+              "w-full rounded-md border bg-transparent px-4 py-2 placeholder:text-gray-500 dark:placeholder:text-gray-500",
+              {
+                "border-red-500 dark:border-red-500":
+                  !!formData.formState.errors.name,
+                "border-gray-100 hover:border-gray-200 dark:border-gray-800 dark:hover:border-gray-700":
+                  !formData.formState.errors.name,
+              }
+            )}
           />
           {!!formData.formState.errors.name && (
-            <FormErrorMessage>
+            <p className="text-sm text-red-500">
               {formData.formState.errors.name.message}
-            </FormErrorMessage>
+            </p>
           )}
-        </FormControl>
+        </div>
 
-        <FormControl mb="4" isInvalid={!!formData.formState.errors.email}>
-          <FormLabel>Email</FormLabel>
-          <Input
+        <div className="mb-4 flex flex-col gap-2">
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
             type="email"
             placeholder="john@example.com"
             {...formData.register("email", {
               required: "Email is required",
             })}
+            className={classNames(
+              "w-full rounded-md border bg-transparent px-4 py-2 placeholder:text-gray-500 dark:placeholder:text-gray-500",
+              {
+                "border-red-500 dark:border-red-500":
+                  !!formData.formState.errors.email,
+                "border-gray-100 hover:border-gray-200 dark:border-gray-800 dark:hover:border-gray-700":
+                  !formData.formState.errors.email,
+              }
+            )}
           />
           {!!formData.formState.errors.email && (
-            <FormErrorMessage>
+            <p className="text-sm text-red-500">
               {formData.formState.errors.email.message}
-            </FormErrorMessage>
+            </p>
           )}
-        </FormControl>
+        </div>
 
-        <FormControl mb="4" isInvalid={!!formData.formState.errors.password}>
-          <FormLabel>Password</FormLabel>
-          <InputGroup>
-            <Input
+        <div className="mb-4 flex flex-col gap-2">
+          <label htmlFor="password">Password</label>
+          <div className="relative">
+            <input
+              id="password"
               type={showPassword ? "text" : "password"}
               placeholder="••••••••"
               {...formData.register("password", {
@@ -86,36 +93,42 @@ const SignUpPage = () => {
                   message: "Password must not be more than 16 characters long",
                 },
               })}
-            />
-            <InputRightElement>
-              <IconButton
-                size="sm"
-                aria-label="Toggle Show Password"
-                variant="ghost"
-                icon={
-                  <Icon
-                    as={showPassword ? MdVisibilityOff : MdVisibility}
-                    fontSize="xl"
-                  />
+              className={classNames(
+                "w-full rounded-md border bg-transparent px-4 py-2 placeholder:text-gray-500 dark:placeholder:text-gray-500",
+                {
+                  "border-red-500 dark:border-red-500":
+                    !!formData.formState.errors.password,
+                  "border-gray-100 hover:border-gray-200 dark:border-gray-800 dark:hover:border-gray-700":
+                    !formData.formState.errors.password,
                 }
-                onClick={setShowPassword.toggle}
-              />
-            </InputRightElement>
-          </InputGroup>
+              )}
+            />
+            <div className="absolute right-0 top-0 flex aspect-square h-full items-center justify-center">
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="rounded-md p-1.5 text-gray-600 hover:bg-gray-100 hover:text-black active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-900 dark:hover:text-white dark:active:bg-gray-800"
+              >
+                {showPassword ? (
+                  <MdVisibilityOff className="text-xl" />
+                ) : (
+                  <MdVisibility className="text-xl" />
+                )}
+              </button>
+            </div>
+          </div>
           {!!formData.formState.errors.password && (
-            <FormErrorMessage>
+            <p className="text-sm text-red-500">
               {formData.formState.errors.password.message}
-            </FormErrorMessage>
+            </p>
           )}
-        </FormControl>
+        </div>
 
-        <FormControl
-          mb="4"
-          isInvalid={!!formData.formState.errors.confimrPassword}
-        >
-          <FormLabel>Confirm Password</FormLabel>
-          <InputGroup>
-            <Input
+        <div className="mb-4 flex flex-col gap-2">
+          <label htmlFor="confirm-password">Confirm Password</label>
+          <div className="relative">
+            <input
+              id="confirm-password"
               type={showPassword ? "text" : "password"}
               placeholder="••••••••"
               {...formData.register("confimrPassword", {
@@ -124,34 +137,45 @@ const SignUpPage = () => {
                   value === formData.getValues("password") ||
                   "Password didn't matched",
               })}
-            />
-            <InputRightElement>
-              <IconButton
-                size="sm"
-                aria-label="Toggle Show Password"
-                variant="ghost"
-                icon={
-                  <Icon
-                    as={showPassword ? MdVisibilityOff : MdVisibility}
-                    fontSize="xl"
-                  />
+              className={classNames(
+                "w-full rounded-md border bg-transparent px-4 py-2 placeholder:text-gray-500 dark:placeholder:text-gray-500",
+                {
+                  "border-red-500 dark:border-red-500":
+                    !!formData.formState.errors.confimrPassword,
+                  "border-gray-100 hover:border-gray-200 dark:border-gray-800 dark:hover:border-gray-700":
+                    !formData.formState.errors.confimrPassword,
                 }
-                onClick={setShowPassword.toggle}
-              />
-            </InputRightElement>
-          </InputGroup>
+              )}
+            />
+            <div className="absolute right-0 top-0 flex aspect-square h-full items-center justify-center">
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="rounded-md p-1.5 text-gray-600 hover:bg-gray-100 hover:text-black active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-900 dark:hover:text-white dark:active:bg-gray-800"
+              >
+                {showPassword ? (
+                  <MdVisibilityOff className="text-xl" />
+                ) : (
+                  <MdVisibility className="text-xl" />
+                )}
+              </button>
+            </div>
+          </div>
           {!!formData.formState.errors.confimrPassword && (
-            <FormErrorMessage>
+            <p className="text-sm text-red-500">
               {formData.formState.errors.confimrPassword.message}
-            </FormErrorMessage>
+            </p>
           )}
-        </FormControl>
+        </div>
 
-        <Button type="submit" colorScheme="blue" w="full" mt="4">
-          Continue with Email
-        </Button>
-      </Box>
-    </Container>
+        <button
+          type="submit"
+          className="mt-4 w-full rounded-md bg-primary-500 py-2 px-4 font-medium text-white outline-offset-2 hover:bg-primary-600 active:bg-primary-700"
+        >
+          Sign Up
+        </button>
+      </form>
+    </div>
   );
 };
 

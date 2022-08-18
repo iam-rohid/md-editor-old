@@ -1,47 +1,29 @@
 import SITE from "@/constants/SITE";
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  useColorModeValue,
-} from "@chakra-ui/react";
 import { Link } from "@tanstack/react-location";
 
 const AuthHeader = () => {
-  const bgColor = useColorModeValue("white", "black");
-  const borderColor = useColorModeValue("gray.100", "gray.900");
   return (
-    <Flex
-      alignItems="center"
-      height="14"
-      width="full"
-      position="sticky"
-      top={0}
-      right={0}
-      left={0}
-      zIndex={10}
-      px="4"
-      bgColor={bgColor}
-      borderColor={borderColor}
-      borderBottomWidth={1}
-    >
-      <Box flex={1}>
-        <Link to="/">
-          <Heading size="md" as="a">
-            {SITE.NAME}
-          </Heading>
+    <nav className="h-14 bg-white dark:bg-black">
+      <div className="flex h-full items-center px-4">
+        <Link to="/" className="text-xl font-bold uppercase">
+          {SITE.NAME}
         </Link>
-      </Box>
-      <Flex gap="2">
-        <Button as={Link} to="login" variant="ghost">
-          Log In
-        </Button>
-        <Button as={Link} to="/signup" variant="outline">
-          Sign Up
-        </Button>
-      </Flex>
-    </Flex>
+        <div className="flex flex-1 items-center justify-end gap-2">
+          <Link
+            to="/login"
+            className="rounded-md px-3.5 py-1.5 font-medium text-gray-600 hover:bg-gray-100 hover:text-black active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-900 dark:hover:text-white dark:active:bg-gray-800"
+          >
+            Log In
+          </Link>
+          <Link
+            to="/signup"
+            className="rounded-md bg-primary-500 px-3.5 py-1.5 font-medium text-white outline-offset-2 hover:bg-primary-600 active:bg-primary-700"
+          >
+            Sign Up
+          </Link>
+        </div>
+      </div>
+    </nav>
   );
 };
 
