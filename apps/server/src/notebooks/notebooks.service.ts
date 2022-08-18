@@ -34,6 +34,7 @@ export class NotebooksService {
   }
 
   async findAll(userId: string) {
+    console.log(userId);
     try {
       return await this.prisma.notebook.findMany({
         where: {

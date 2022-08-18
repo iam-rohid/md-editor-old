@@ -51,7 +51,7 @@ const App = () => {
             element: <Settings />,
           },
           {
-            path: "notebook/:id",
+            path: "notebooks/:id",
             element: <Notebook />,
           },
           {

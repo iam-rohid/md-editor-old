@@ -27,6 +27,7 @@ export class NotebooksController {
     return this.notebooksService.create(createNotebookDto, userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll(@Request() req: any) {
     const {
@@ -35,6 +36,7 @@ export class NotebooksController {
     return this.notebooksService.findAll(userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string, @Request() req: any) {
     const {
@@ -43,6 +45,7 @@ export class NotebooksController {
     return this.notebooksService.findOne(id, userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -55,6 +58,7 @@ export class NotebooksController {
     return this.notebooksService.update(id, updateNotebookDto, userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string, @Request() req: any) {
     const {
