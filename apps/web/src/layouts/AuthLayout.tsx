@@ -1,4 +1,5 @@
 import AuthHeader from "@/components/AuthHeader";
+import FullscreenLoader from "@/components/FullscreenLoader";
 import { useAuth } from "@/contexts/AuthContext";
 import { Navigate } from "@tanstack/react-location";
 import { ReactNode } from "react";
@@ -12,7 +13,7 @@ const AuthLayout = (props: Props) => {
   const { status } = useAuth();
 
   if (status === "loading") {
-    return null;
+    return <FullscreenLoader />;
   }
 
   if (status === "success") {

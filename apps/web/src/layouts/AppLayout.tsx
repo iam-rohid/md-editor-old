@@ -1,3 +1,4 @@
+import FullscreenLoader from "@/components/FullscreenLoader";
 import PrimarySidebar from "@/components/PrimarySidebar";
 import { useAuth } from "@/contexts/AuthContext";
 import { Navigate, Outlet } from "@tanstack/react-location";
@@ -6,7 +7,7 @@ const AppLayout = () => {
   const { status } = useAuth();
 
   if (status === "loading") {
-    return null;
+    return <FullscreenLoader />;
   }
 
   if (status === "error") {
