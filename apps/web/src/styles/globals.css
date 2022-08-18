@@ -16,3 +16,31 @@ body {
 .dark {
   color-scheme: dark;
 }
+
+.cm-editor {
+  @apply h-full w-full overflow-hidden;
+}
+.cm-editor.cm-editor.cm-focused {
+  @apply outline-none;
+}
+.cm-editor .cm-content {
+  @apply mr-auto max-w-3xl caret-white dark:text-white;
+}
+.cm-editor .cm-gutters {
+  @apply ml-auto border-none bg-transparent;
+}
+.cm-editor .cm-gutter.cm-lineNumbers {
+  display: none !important;
+}
+.cm-editor .cm-activeLineGutter {
+  @apply bg-transparent;
+}
+.cm-editor .cm-activeLine {
+  @apply bg-transparent;
+}
+.cm-editor .cm-scroller {
+  @apply overflow-auto font-mono text-base;
+}
+.cm-editor .cm-cursor {
+  @apply border-l-2 border-yellow-400;
+}

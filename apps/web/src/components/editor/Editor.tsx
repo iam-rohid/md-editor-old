@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import Spinner from "../Spinner";
 import EditorToolbar from "./EditorToolbar";
+import SourcePane from "./SourcePane";
 
 type Props = {
   noteId: string;
@@ -11,7 +12,7 @@ type Props = {
 const Editor = (props: Props) => {
   const { noteId } = props;
   const queryClient = useQueryClient();
-  const [body, setBody] = useState("");
+  const [body, setBody] = useState<string | null>(null);
   const { data, status } = useQuery(
     ["note", noteId],
     ({ queryKey }) => getNoteAsync(queryKey[1]),
@@ -56,7 +57,6 @@ const Editor = (props: Props) => {
         },
         {
           onSuccess: (data) => {
-            console.log("Saved");
             queryClient.setQueryData(["note", noteId], data);
           },
         }
@@ -66,6 +66,7 @@ const Editor = (props: Props) => {
   );
 
   useEffect(() => {
+    if (!body) return;
     const timeout = setTimeout(() => {
       if (body !== data?.body) {
         handleBodyUpdate(body);
@@ -77,6 +78,10 @@ const Editor = (props: Props) => {
     };
   }, [body, handleBodyUpdate, data]);
 
+  useEffect(() => {
+    setBody(null);
+  }, [noteId]);
+
   if (status !== "success" || !data) {
     return (
       <div>
@@ -86,14 +91,11 @@ const Editor = (props: Props) => {
   }
 
   return (
-    <div className="h-full w-full flex-1 bg-white dark:bg-black">
+    <div className="flex h-full w-full flex-1 flex-col overflow-hidden bg-white dark:bg-black">
       <EditorToolbar title={data.title} onTitleChange={handleTitleChange} />
-
-      <textarea
-        className="h-full w-full"
-        value={body}
-        onChange={(e) => setBody(e.currentTarget.value)}
-      />
+      <div className="flex h-full w-full flex-1 overflow-hidden bg-gray-500">
+        {body !== null && <SourcePane defaultValue={body} onChange={setBody} />}
+      </div>
     </div>
   );
 };
