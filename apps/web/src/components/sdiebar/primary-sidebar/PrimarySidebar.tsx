@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-location";
 import { MdList, MdSearch, MdSettings, MdStar } from "react-icons/md";
-import SidebarButton from "./SidebarButton";
-import SidebarItemGroup from "./SidebarItemGroup";
+import SidebarItem from "../SidebarItem";
+import SidebarItemGroup from "../SidebarItemGroup";
 import PrimarySidebarHeader from "./PrimarySidebarHeader";
-import NotebooksList from "./NotebooksList";
-import TagsList from "./TagsList";
+import NotebooksList from "../NotebooksList";
+import TagsList from "../TagsList";
 import { useEffect } from "react";
 import {
   getNotebooksAsync,
@@ -37,10 +37,10 @@ const PrimarySidebar = () => {
       <PrimarySidebarHeader />
       <nav className="h-full w-full flex-1 overflow-y-auto p-2">
         <SidebarItemGroup>
-          <SidebarButton icon={<MdSearch />} label="Search" />
+          <SidebarItem icon={<MdSearch />} label="Search" />
           <Link to="all">
             {({ isActive }) => (
-              <SidebarButton
+              <SidebarItem
                 icon={<MdList />}
                 label="All Notes"
                 isActive={isActive}
@@ -49,7 +49,7 @@ const PrimarySidebar = () => {
           </Link>
           <Link to="favorites">
             {({ isActive }) => (
-              <SidebarButton
+              <SidebarItem
                 icon={<MdStar />}
                 label="Favorites"
                 isActive={isActive}
@@ -58,7 +58,7 @@ const PrimarySidebar = () => {
           </Link>
           <Link to="settings">
             {({ isActive }) => (
-              <SidebarButton
+              <SidebarItem
                 icon={<MdSettings />}
                 label="Settings"
                 isActive={isActive}

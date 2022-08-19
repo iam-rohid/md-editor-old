@@ -1,11 +1,11 @@
 import { useCallback } from "react";
-import SecondarySidebar from "@/components/SecondarySidebar";
+import SecondarySidebar from "@/components/sdiebar/secondary-sidebar/SecondarySidebar";
 import { Link, Outlet } from "@tanstack/react-location";
-import SidebarItemGroup from "@/components/SidebarItemGroup";
-import NoteItem from "@/components/NoteItem";
+import SidebarItemGroup from "@/components/sdiebar/SidebarItemGroup";
+import NoteItem from "@/components/sdiebar/NoteItem";
 import moment from "moment";
-import SidebarNav from "@/components/SidebarNav";
-import SecondarySidebarHeader from "@/components/SecondarySidebarHeader";
+import SidebarNav from "@/components/sdiebar/SidebarNav";
+import SecondarySidebarHeader from "@/components/sdiebar/secondary-sidebar/SecondarySidebarHeader";
 import { MdAdd } from "react-icons/md";
 import {
   createNoteAsync,

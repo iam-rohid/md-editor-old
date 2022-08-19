@@ -1,6 +1,6 @@
-import SecondarySidebar from "@/components/SecondarySidebar";
-import SidebarButton from "@/components/SidebarButton";
-import SidebarItemGroup from "@/components/SidebarItemGroup";
+import SecondarySidebar from "@/components/sdiebar/secondary-sidebar/SecondarySidebar";
+import SidebarItem from "@/components/sdiebar/SidebarItem";
+import SidebarItemGroup from "@/components/sdiebar/SidebarItemGroup";
 import { Link, Outlet, useRouter } from "@tanstack/react-location";
 import { MdPalette, MdPerson } from "react-icons/md";
 
@@ -15,7 +15,7 @@ const Settings = () => {
         <div className="h-full w-full flex-1 overflow-y-auto p-2">
           <SidebarItemGroup>
             <Link to="account">
-              <SidebarButton
+              <SidebarItem
                 label="Account"
                 icon={<MdPerson />}
                 isActive={
@@ -24,7 +24,7 @@ const Settings = () => {
               />
             </Link>
             <Link to="appearance">
-              <SidebarButton
+              <SidebarItem
                 label="Appearance"
                 icon={<MdPalette />}
                 isActive={

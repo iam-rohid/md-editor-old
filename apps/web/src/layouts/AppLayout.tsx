@@ -1,4 +1,4 @@
-import PrimarySidebar from "@/components/PrimarySidebar";
+import PrimarySidebar from "@/components/sdiebar/primary-sidebar/PrimarySidebar";
 import { useAppSelector } from "@mdotion/store";
 import { Navigate, Outlet } from "@tanstack/react-location";
 

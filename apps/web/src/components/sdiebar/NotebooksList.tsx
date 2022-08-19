@@ -1,9 +1,9 @@
 import { Link } from "@tanstack/react-location";
 import { MdAdd, MdFolder } from "react-icons/md";
-import SidebarButton from "./SidebarButton";
+import SidebarItem from "./SidebarItem";
 import SidebarItemGroup from "./SidebarItemGroup";
-import Spinner from "./Spinner";
-import CreateNotebookDialog from "./dialogs/CreateNotebookDialog";
+import Spinner from "../Spinner";
+import CreateNotebookDialog from "../dialogs/CreateNotebookDialog";
 import { useCallback, useState } from "react";
 import { useAppSelector } from "@mdotion/store";
 
@@ -38,7 +38,7 @@ const NotebooksList = () => {
           data.map((notebook) => (
             <Link to={`notebook/${notebook.id}`} key={notebook.id}>
               {({ isActive }) => (
-                <SidebarButton
+                <SidebarItem
                   icon={<MdFolder />}
                   label={notebook.title}
                   isActive={isActive}

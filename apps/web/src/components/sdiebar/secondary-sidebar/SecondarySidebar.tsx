@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import NotebookColumn from "./NotebookColumn";
 
 type Props = {
   children: ReactNode;

@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-location";
 import { MdAdd, MdTag } from "react-icons/md";
-import SidebarButton from "./SidebarButton";
+import SidebarItem from "./SidebarItem";
 import SidebarItemGroup from "./SidebarItemGroup";
 
 const TagsList = () => {
@@ -16,12 +16,12 @@ const TagsList = () => {
     >
       <Link to={`tags/${12345}`}>
         {({ isActive }) => (
-          <SidebarButton icon={<MdTag />} label="Article" isActive={isActive} />
+          <SidebarItem icon={<MdTag />} label="Article" isActive={isActive} />
         )}
       </Link>
-      <SidebarButton icon={<MdTag />} label="Reminder" />
-      <SidebarButton icon={<MdTag />} label="Place" />
-      <SidebarButton icon={<MdTag />} label="Gym" />
+      <SidebarItem icon={<MdTag />} label="Reminder" />
+      <SidebarItem icon={<MdTag />} label="Place" />
+      <SidebarItem icon={<MdTag />} label="Gym" />
     </SidebarItemGroup>
   );
 };

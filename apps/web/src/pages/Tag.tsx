@@ -1,4 +1,4 @@
-import SecondarySidebar from "@/components/SecondarySidebar";
+import SecondarySidebar from "@/components/sdiebar/secondary-sidebar/SecondarySidebar";
 import { Outlet } from "@tanstack/react-location";
 
 const Tag = () => {

@@ -1,13 +1,13 @@
 import { ReactNode } from "react";
 import classNames from "classnames";
 
-export type SidebarNavProps = {
+type Props = {
   label: string;
   icon: ReactNode;
   isActive?: boolean;
 };
 
-const SidebarButton = (props: SidebarNavProps) => {
+const SidebarItem = (props: Props) => {
   const { label, icon, isActive } = props;
   return (
     <div
@@ -26,4 +26,4 @@ const SidebarButton = (props: SidebarNavProps) => {
   );
 };
 
-export default SidebarButton;
+export default SidebarItem;

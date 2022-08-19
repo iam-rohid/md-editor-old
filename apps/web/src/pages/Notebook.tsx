@@ -1,8 +1,8 @@
-import NoteItem from "@/components/NoteItem";
-import SecondarySidebar from "@/components/SecondarySidebar";
-import SecondarySidebarHeader from "@/components/SecondarySidebarHeader";
-import SidebarItemGroup from "@/components/SidebarItemGroup";
-import SidebarNav from "@/components/SidebarNav";
+import NoteItem from "@/components/sdiebar/NoteItem";
+import SecondarySidebar from "@/components/sdiebar/secondary-sidebar/SecondarySidebar";
+import SecondarySidebarHeader from "@/components/sdiebar/secondary-sidebar/SecondarySidebarHeader";
+import SidebarItemGroup from "@/components/sdiebar/SidebarItemGroup";
+import SidebarNav from "@/components/sdiebar/SidebarNav";
 import {
   createNoteAsync,
   useAppDispatch,

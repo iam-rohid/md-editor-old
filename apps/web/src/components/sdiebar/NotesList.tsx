@@ -1,4 +1,4 @@
-import { Note } from "@/models/note";
+import { Note } from "@mdotion/store";
 import { Link } from "@tanstack/react-location";
 import moment from "moment";
 import NoteItem from "./NoteItem";
