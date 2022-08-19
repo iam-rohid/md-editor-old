@@ -1,34 +1,28 @@
 import { useCallback } from "react";
-import { createNoteAsync, getAllNotesAsync } from "@/api/noteApi";
 import SecondarySidebar from "@/components/SecondarySidebar";
-import { Link, Outlet, useNavigate } from "@tanstack/react-location";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Link, Outlet } from "@tanstack/react-location";
 import SidebarItemGroup from "@/components/SidebarItemGroup";
 import NoteItem from "@/components/NoteItem";
 import moment from "moment";
 import SidebarNav from "@/components/SidebarNav";
 import SecondarySidebarHeader from "@/components/SecondarySidebarHeader";
 import { MdAdd } from "react-icons/md";
+import {
+  createNoteAsync,
+  useAppDispatch,
+  useAppSelector,
+} from "@mdotion/store";
 
 const All = () => {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  const notes = useQuery(["notebooks", "all"], getAllNotesAsync);
-
-  const createNoteMutation = useMutation(createNoteAsync, {
-    onSuccess: (data) => {
-      queryClient.invalidateQueries(["notebooks", "all"]);
-      navigate({
-        to: `notes/${data.id}`,
-      });
-    },
-  });
-
-  const handleCreateNewNote = useCallback(() => {
-    createNoteMutation.mutate({
-      title: "Untitled",
-    });
-  }, [createNoteMutation]);
+  const notes = useAppSelector((state) => state.note.data);
+  const dispatch = useAppDispatch();
+  const onCreateNote = useCallback(() => {
+    dispatch(
+      createNoteAsync({
+        title: "Untitled",
+      })
+    );
+  }, [dispatch]);
 
   return (
     <>
@@ -37,14 +31,14 @@ const All = () => {
           <button
             type="button"
             className="flex h-9 w-9 items-center justify-center rounded-md text-gray-600 hover:bg-gray-100 hover:text-black active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white dark:active:bg-gray-700"
-            onClick={handleCreateNewNote}
+            onClick={onCreateNote}
           >
             <MdAdd className="text-2xl" />
           </button>
         </SecondarySidebarHeader>
         <SidebarNav>
           <SidebarItemGroup>
-            {notes.data?.map((note) => (
+            {notes.map((note) => (
               <Link key={note.id} to={`note/${note.id}`}>
                 {({ isActive }) => (
                   <NoteItem

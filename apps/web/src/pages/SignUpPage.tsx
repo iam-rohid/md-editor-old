@@ -1,35 +1,26 @@
 import { useForm } from "react-hook-form";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import classNames from "classnames";
-import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { signUpWithEmailPasswordAsync } from "@/api/authApi";
-import { useAuth } from "@/contexts/AuthContext";
-
-type SignUpForm = {
-  name: string;
-  email: string;
-  password: string;
-  confimrPassword: string;
-};
+import { useCallback, useState } from "react";
+import {
+  SignUpDto,
+  signUpWithEmailAsync,
+  useAppDispatch,
+  useAppSelector,
+} from "@mdotion/store";
 
 const SignUpPage = () => {
-  const formData = useForm<SignUpForm>();
-  const { setToken } = useAuth();
+  const formData = useForm<SignUpDto>();
   const [showPassword, setShowPassword] = useState(false);
-  const signUpMutation = useMutation(signUpWithEmailPasswordAsync, {
-    onSuccess(data) {
-      setToken(data.accessToken);
-    },
-  });
+  const { status, error } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
 
-  const onSubmit = (value: SignUpForm) => {
-    signUpMutation.mutate({
-      email: value.email.toLowerCase().trim(),
-      password: value.password,
-      fullname: value.name.trim(),
-    });
-  };
+  const onSubmit = useCallback(
+    (value: SignUpDto) => {
+      dispatch(signUpWithEmailAsync(value));
+    },
+    [dispatch]
+  );
 
   return (
     <div className="mx-auto my-16 max-w-md px-4">
@@ -42,22 +33,22 @@ const SignUpPage = () => {
             id="name"
             type="text"
             placeholder="John Doe"
-            {...formData.register("name", {
+            {...formData.register("fullname", {
               required: "Name is required",
             })}
             className={classNames(
               "w-full rounded-md border bg-transparent px-4 py-2 placeholder:text-gray-500 dark:placeholder:text-gray-500",
               {
                 "border-red-500 dark:border-red-500":
-                  !!formData.formState.errors.name,
+                  !!formData.formState.errors.fullname,
                 "border-gray-100 hover:border-gray-200 dark:border-gray-800 dark:hover:border-gray-700":
-                  !formData.formState.errors.name,
+                  !formData.formState.errors.fullname,
               }
             )}
           />
-          {!!formData.formState.errors.name && (
+          {!!formData.formState.errors.fullname && (
             <p className="text-sm text-red-500">
-              {formData.formState.errors.name.message}
+              {formData.formState.errors.fullname.message}
             </p>
           )}
         </div>
@@ -182,15 +173,20 @@ const SignUpPage = () => {
         </div>
 
         <button
+          disabled={status === "signingUp"}
           type="submit"
-          className="mt-4 w-full rounded-md bg-primary-500 py-2 px-4 font-medium text-white outline-offset-2 hover:bg-primary-600 active:bg-primary-700"
+          className="mt-4 flex h-10 w-full items-center justify-center rounded-md bg-primary-500 px-4 font-medium text-white outline-offset-2 hover:bg-primary-600 active:bg-primary-700"
         >
-          Sign Up
+          {status === "signingUp" ? (
+            <div className="bordercap h-7 w-7 animate-spin rounded-full border-4 border-t-white border-l-white  border-b-white/20 border-r-white/20" />
+          ) : (
+            "Sign Up"
+          )}
         </button>
 
-        {!!signUpMutation.error && (
+        {!!error && (
           <p className="mt-4 rounded-md border  border-red-500 px-4 py-2 text-red-500">
-            {(signUpMutation.error as any).message}
+            {error.message}
           </p>
         )}
       </form>

@@ -1,9 +1,9 @@
-import { createNotebookAsync } from "@/api/notebookApi";
-import { NOTEBOOKS_KEY } from "@/constants/keys";
-import { CreateNotebook } from "@/models/notebook";
 import { Dialog } from "@headlessui/react";
-import { useNavigate } from "@tanstack/react-location";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  createNotebookAsync,
+  CreateNotebookDto,
+  useAppDispatch,
+} from "@mdotion/store";
 import classNames from "classnames";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
@@ -15,23 +15,15 @@ type Props = {
 
 const CreateNotebookDialog = (props: Props) => {
   const { isOpen, onClose } = props;
-  const formData = useForm<CreateNotebook>();
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  const createNotebookMutation = useMutation(createNotebookAsync, {
-    onSuccess: (data) => {
-      queryClient.invalidateQueries([NOTEBOOKS_KEY]);
-      formData.reset();
-      onClose();
-      navigate({ to: `notebook/${data.id}` });
-    },
-  });
+  const formData = useForm<CreateNotebookDto>();
+  const dispatch = useAppDispatch();
 
   const onSubmit = useCallback(
-    (value: CreateNotebook) => {
-      createNotebookMutation.mutate(value);
+    (dto: CreateNotebookDto) => {
+      dispatch(createNotebookAsync(dto));
+      onClose();
     },
-    [createNotebookMutation]
+    [dispatch, onClose]
   );
 
   return (

@@ -1,10 +1,17 @@
 import {
+  getCurrentUserAsync,
+  useAppDispatch,
+  useAppSelector,
+} from "@mdotion/store";
+import {
   DefaultGenerics,
   Navigate,
   ReactLocation,
   Route,
   Router,
 } from "@tanstack/react-location";
+import { useEffect } from "react";
+import FullscreenLoader from "./components/FullscreenLoader";
 import AppLayout from "./layouts/AppLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import All from "./pages/All";
@@ -78,6 +85,19 @@ const routes: Route<DefaultGenerics>[] = [
 ];
 
 const App = () => {
+  const userStatus = useAppSelector((state) => state.user.status);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (userStatus === "idle") {
+      dispatch(getCurrentUserAsync());
+    }
+  }, [dispatch, userStatus]);
+
+  if (userStatus === "loading" || userStatus === "idle") {
+    return <FullscreenLoader />;
+  }
+
   return <Router location={location} routes={routes} />;
 };
 

@@ -1,13 +1,20 @@
 import SITE from "@/constants/SITE";
-import { useAuth } from "@/contexts/AuthContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Popover } from "@headlessui/react";
+import { logOutAsync, useAppDispatch, useAppSelector } from "@mdotion/store";
 import { Link } from "@tanstack/react-location";
+import { useCallback } from "react";
 import { MdLightMode, MdDarkMode, MdPerson, MdLogout } from "react-icons/md";
 
 const PrimarySidebarHeader = () => {
-  const { user, onLogOut } = useAuth();
+  const user = useAppSelector((state) => state.user.data);
   const { colorScheme, toggleColorScheme } = useTheme();
+  const dispatch = useAppDispatch();
+
+  const onLogOut = useCallback(() => {
+    dispatch(logOutAsync());
+  }, [dispatch]);
+
   if (!user) return null;
   return (
     <div className="flex h-12 w-full items-center px-2">

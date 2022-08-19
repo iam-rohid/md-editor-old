@@ -58,10 +58,11 @@ const myHighlightStyle = HighlightStyle.define([
 type Props = {
   defaultValue: string;
   onChange: (value: string) => void;
+  onEditorMount?: (editorView: EditorView) => void;
 };
 
 const SourcePane = (props: Props) => {
-  const { defaultValue, onChange } = props;
+  const { defaultValue, onChange, onEditorMount } = props;
   const { editorRef, editorView } = useCodeMirror({
     initValue: defaultValue,
     onChange,
@@ -76,7 +77,8 @@ const SourcePane = (props: Props) => {
         syntaxHighlighting(myHighlightStyle),
       ]),
     });
-  }, [editorView]);
+    onEditorMount && onEditorMount(editorView);
+  }, [editorView, onEditorMount]);
 
   return (
     <div

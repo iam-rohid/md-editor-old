@@ -13,6 +13,7 @@ export const getAllNotesAsync = async (): Promise<Note[]> => {
   });
   return data;
 };
+
 export const getFavoritesNotesAsync = async (): Promise<Note[]> => {
   const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
   const { data } = await axios.get(`${API_URL}/notes`, {

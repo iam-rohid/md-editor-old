@@ -1,16 +1,11 @@
-import FullscreenLoader from "@/components/FullscreenLoader";
 import PrimarySidebar from "@/components/PrimarySidebar";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAppSelector } from "@mdotion/store";
 import { Navigate, Outlet } from "@tanstack/react-location";
 
 const AppLayout = () => {
-  const { status } = useAuth();
+  const user = useAppSelector((state) => state.user.data);
 
-  if (status === "loading") {
-    return <FullscreenLoader />;
-  }
-
-  if (status === "error") {
+  if (!user) {
     return <Navigate to="/login" replace />;
   }
 

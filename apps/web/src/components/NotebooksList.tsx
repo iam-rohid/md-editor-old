@@ -1,17 +1,17 @@
-import { getNotebooksAsync } from "@/api/notebookApi";
 import { Link } from "@tanstack/react-location";
-import { useQuery } from "@tanstack/react-query";
 import { MdAdd, MdFolder } from "react-icons/md";
 import SidebarButton from "./SidebarButton";
 import SidebarItemGroup from "./SidebarItemGroup";
 import Spinner from "./Spinner";
 import CreateNotebookDialog from "./dialogs/CreateNotebookDialog";
-import { useState } from "react";
-import { NOTEBOOKS_KEY } from "@/constants/keys";
+import { useCallback, useState } from "react";
+import { useAppSelector } from "@mdotion/store";
 
 const NotebooksList = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const notebooks = useQuery([NOTEBOOKS_KEY], getNotebooksAsync);
+  const { data, status } = useAppSelector((state) => state.notebook);
+
+  const onRetry = useCallback(() => {}, []);
 
   return (
     <>
@@ -25,17 +25,17 @@ const NotebooksList = () => {
           },
         ]}
       >
-        {notebooks.status === "loading" ? (
+        {status === "loading" ? (
           <div className="flex h-32 w-full flex-col items-center justify-center gap-2 text-center">
             <Spinner />
           </div>
-        ) : notebooks.status === "error" ? (
+        ) : status === "error" ? (
           <div className="flex h-32 w-full flex-col items-center justify-center gap-2 text-center">
             <p>Failed to load notebooks</p>
-            <button onClick={() => notebooks.refetch()}>Retry</button>
+            <button onClick={onRetry}>Retry</button>
           </div>
         ) : (
-          notebooks.data?.map((notebook) => (
+          data.map((notebook) => (
             <Link to={`notebook/${notebook.id}`} key={notebook.id}>
               {({ isActive }) => (
                 <SidebarButton

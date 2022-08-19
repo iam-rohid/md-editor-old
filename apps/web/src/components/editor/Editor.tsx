@@ -1,100 +1,95 @@
-import { getNoteAsync, updateNoteAsync } from "@/api/noteApi";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  Note,
+  updateNoteAsync,
+  useAppDispatch,
+  useAppSelector,
+} from "@mdotion/store";
+import { EditorView } from "codemirror";
 import { useCallback, useEffect, useState } from "react";
-import Spinner from "../Spinner";
 import EditorToolbar from "./EditorToolbar";
 import SourcePane from "./SourcePane";
 
 type Props = {
-  noteId: string;
+  note: Note;
 };
 
 const Editor = (props: Props) => {
-  const { noteId } = props;
-  const queryClient = useQueryClient();
-  const [body, setBody] = useState<string | null>(null);
-  const { data, status } = useQuery(
-    ["note", noteId],
-    ({ queryKey }) => getNoteAsync(queryKey[1]),
-    {
-      retry: false,
-      refetchOnWindowFocus: false,
-      onSuccess: (data) => {
-        setBody(data.body || "");
-      },
-    }
-  );
-  const updateMutation = useMutation(updateNoteAsync);
+  const { note } = props;
+  const [body, setBody] = useState("");
+  const [editorView, setEditorView] = useState<EditorView | null>(null);
+  const dispatch = useAppDispatch();
 
   const handleTitleChange = useCallback(
     (value: string) => {
-      updateMutation.mutate(
-        {
-          id: noteId,
+      dispatch(
+        updateNoteAsync({
+          id: note.id,
           body: {
             title: value,
           },
-        },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries(["note"]);
-            queryClient.invalidateQueries(["notes"]);
-          },
-        }
+        })
       );
     },
-    [updateMutation, noteId, queryClient]
+    [dispatch, note]
   );
 
   const handleBodyUpdate = useCallback(
     (value: string) => {
-      updateMutation.mutate(
-        {
-          id: noteId,
-          body: {
-            body: value,
-          },
-        },
-        {
-          onSuccess: (data) => {
-            queryClient.setQueryData(["note", noteId], data);
-          },
-        }
-      );
+      if (body !== note?.body) {
+        console.log("Saved");
+        dispatch(
+          updateNoteAsync({
+            id: note.id,
+            body: {
+              body: value,
+            },
+          })
+        );
+      }
     },
-    [updateMutation, noteId, queryClient]
+    [body, dispatch, note?.body, note.id]
   );
 
   useEffect(() => {
+    if (editorView) {
+      editorView.dispatch({
+        changes: {
+          from: 0,
+          to: editorView.state.doc.length,
+          insert: note.body || "",
+        },
+      });
+    }
+    setBody(note.body || "");
+  }, [note.body, editorView]);
+
+  useEffect(() => {
     if (!body) return;
+
     const timeout = setTimeout(() => {
-      if (body !== data?.body) {
-        handleBodyUpdate(body);
-      }
+      handleBodyUpdate(body);
     }, 500);
 
     return () => {
       clearTimeout(timeout);
     };
-  }, [body, handleBodyUpdate, data]);
+  }, [body, handleBodyUpdate, note]);
 
-  useEffect(() => {
-    setBody(null);
-  }, [noteId]);
-
-  if (status !== "success" || !data) {
-    return (
-      <div>
-        <Spinner />
-      </div>
-    );
+  if (!note) {
+    return null;
   }
 
   return (
     <div className="flex h-full w-full flex-1 flex-col overflow-hidden bg-white dark:bg-black">
-      <EditorToolbar title={data.title} onTitleChange={handleTitleChange} />
+      <EditorToolbar title={note.title} onTitleChange={handleTitleChange} />
       <div className="flex h-full w-full flex-1 overflow-hidden">
-        {body !== null && <SourcePane defaultValue={body} onChange={setBody} />}
+        <SourcePane
+          onEditorMount={(editor) => {
+            setEditorView(editor);
+          }}
+          defaultValue={body}
+          onChange={setBody}
+        />
       </div>
     </div>
   );

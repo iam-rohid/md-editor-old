@@ -1,6 +1,5 @@
 import AuthHeader from "@/components/AuthHeader";
-import FullscreenLoader from "@/components/FullscreenLoader";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAppSelector } from "@mdotion/store";
 import { Navigate } from "@tanstack/react-location";
 import { ReactNode } from "react";
 
@@ -10,13 +9,9 @@ type Props = {
 
 const AuthLayout = (props: Props) => {
   const { children } = props;
-  const { status } = useAuth();
+  const user = useAppSelector((state) => state.user.data);
 
-  if (status === "loading") {
-    return <FullscreenLoader />;
-  }
-
-  if (status === "success") {
+  if (!!user) {
     return <Navigate to="/" replace />;
   }
 

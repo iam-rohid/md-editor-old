@@ -2,30 +2,21 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 import classNames from "classnames";
-import { useMutation } from "@tanstack/react-query";
-import { signInWithEmailPasswordAsync } from "@/api/authApi";
-import { useAuth } from "@/contexts/AuthContext";
-
-type LogInForm = {
-  email: string;
-  password: string;
-};
+import {
+  SignInDto,
+  signInWithEmailAsync,
+  useAppDispatch,
+  useAppSelector,
+} from "@mdotion/store";
 
 const LogInPage = () => {
-  const formData = useForm<LogInForm>();
-  const { setToken } = useAuth();
+  const formData = useForm<SignInDto>();
   const [showPassword, setShowPassword] = useState(false);
-  const logInMutation = useMutation(signInWithEmailPasswordAsync, {
-    onSuccess: (data) => {
-      setToken(data.accessToken);
-    },
-  });
+  const dispatch = useAppDispatch();
+  const { status, error } = useAppSelector((state) => state.user);
 
-  const onSubmit = (value: LogInForm) => {
-    logInMutation.mutate({
-      email: value.email.toLowerCase().trim(),
-      password: value.password,
-    });
+  const onSubmit = (dto: SignInDto) => {
+    dispatch(signInWithEmailAsync(dto));
   };
 
   return (
@@ -102,15 +93,20 @@ const LogInPage = () => {
         </div>
 
         <button
+          disabled={status === "signingIn"}
           type="submit"
-          className="mt-4 w-full rounded-md bg-primary-500 py-2 px-4 font-medium text-white outline-offset-2 hover:bg-primary-600 active:bg-primary-700"
+          className="mt-4 flex h-10 w-full items-center justify-center rounded-md bg-primary-500 px-4 font-medium text-white outline-offset-2 hover:bg-primary-600 active:bg-primary-700"
         >
-          Log In
+          {status === "signingIn" ? (
+            <div className="bordercap h-7 w-7 animate-spin rounded-full border-4 border-t-white border-l-white  border-b-white/20 border-r-white/20" />
+          ) : (
+            "Log In"
+          )}
         </button>
 
-        {!!logInMutation.error && (
+        {!!error && (
           <p className="mt-4 rounded-md border  border-red-500 px-4 py-2 text-red-500">
-            {(logInMutation.error as any).message}
+            {error.message}
           </p>
         )}
       </form>

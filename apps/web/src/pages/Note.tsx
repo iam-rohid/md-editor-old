@@ -1,4 +1,5 @@
 import Editor from "@/components/editor/Editor";
+import { useAppSelector } from "@mdotion/store";
 import { useMatch } from "@tanstack/react-location";
 
 const Note = () => {
@@ -6,7 +7,15 @@ const Note = () => {
   const {
     params: { noteId },
   } = match;
-  return <Editor noteId={noteId} />;
+  const note = useAppSelector((state) =>
+    state.note.data.find((note) => note.id === noteId)
+  );
+
+  if (!note) {
+    return <p>Note not found</p>;
+  }
+
+  return <Editor note={note} />;
 };
 
 export default Note;

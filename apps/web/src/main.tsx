@@ -6,15 +6,18 @@ import AuthProvider from "./contexts/AuthContext";
 import ThemeProvider from "./contexts/ThemeContext";
 import queryClient from "./libs/queryClient";
 import "./styles/globals.css";
+import { Provider } from "@mdotion/store";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </QueryClientProvider>
-    </ThemeProvider>
+    <Provider>
+      <ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>
 );
