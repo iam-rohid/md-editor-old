@@ -9,7 +9,7 @@ const SecondarySidebar = (props: Props) => {
   return (
     <div
       className="flex flex-col border-r border-gray-100 bg-white dark:border-gray-800 dark:bg-black"
-      style={{ width: 260 }}
+      style={{ width: 280 }}
     >
       {children}
     </div>

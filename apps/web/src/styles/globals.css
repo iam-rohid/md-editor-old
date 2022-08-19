@@ -24,7 +24,7 @@ body {
   @apply outline-none;
 }
 .cm-editor .cm-content {
-  @apply mr-auto max-w-2xl leading-7 caret-white dark:text-white;
+  @apply mr-auto max-w-2xl pt-8 pb-96 leading-6 caret-white dark:text-white;
 }
 .cm-editor .cm-gutters {
   @apply ml-auto border-none bg-transparent;

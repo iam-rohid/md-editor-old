@@ -1,13 +1,11 @@
-import {
-  Note,
-  updateNote,
-  useAppDispatch,
-  useAppSelector,
-} from "@mdotion/store";
+import { Note, updateNote, useAppDispatch } from "@mdotion/store";
 import { EditorView } from "codemirror";
 import { useCallback, useEffect, useState } from "react";
 import EditorToolbar from "./EditorToolbar";
-import SourcePane from "./SourcePane";
+import useCodeMirror, {
+  getEditorState,
+  updateListener,
+} from "@/hooks/useCodeMirror";
 
 type Props = {
   note: Note;
@@ -15,12 +13,15 @@ type Props = {
 
 const Editor = (props: Props) => {
   const { note } = props;
+  const [noteId, setNoteId] = useState("");
   const [body, setBody] = useState("");
-  const [editorView, setEditorView] = useState<EditorView | null>(null);
+  const { editorRef, editorView } = useCodeMirror(note.body);
   const dispatch = useAppDispatch();
 
   const handleTitleChange = useCallback(
     (value: string) => {
+      if (note.title === value) return;
+
       dispatch(
         updateNote({
           id: note.id,
@@ -51,44 +52,39 @@ const Editor = (props: Props) => {
   );
 
   useEffect(() => {
-    if (editorView) {
+    if (editorView && noteId !== note.id) {
+      editorView.setState(getEditorState(note.body));
       editorView.dispatch({
-        changes: {
-          from: 0,
-          to: editorView.state.doc.length,
-          insert: note.body || "",
-        },
+        effects: updateListener.reconfigure(
+          EditorView.updateListener.of((update) => {
+            if (update.docChanged) {
+              setBody(String(update.state.doc));
+            }
+          })
+        ),
       });
+      setNoteId(note.id);
+      setBody(note.body || "");
     }
-    setBody(note.body || "");
-  }, [note.body, editorView]);
+  }, [note, noteId, editorView]);
 
   useEffect(() => {
     if (!body) return;
-
     const timeout = setTimeout(() => {
       handleBodyUpdate(body);
     }, 500);
-
     return () => {
       clearTimeout(timeout);
     };
   }, [body, handleBodyUpdate, note]);
 
-  if (!note) {
-    return null;
-  }
-
   return (
     <div className="flex h-full w-full flex-1 flex-col overflow-hidden bg-white dark:bg-black">
       <EditorToolbar title={note.title} onTitleChange={handleTitleChange} />
       <div className="flex h-full w-full flex-1 overflow-hidden">
-        <SourcePane
-          onEditorMount={(editor) => {
-            setEditorView(editor);
-          }}
-          defaultValue={body}
-          onChange={setBody}
+        <div
+          className="relative h-full w-full flex-1 bg-white dark:bg-black"
+          ref={editorRef}
         />
       </div>
     </div>

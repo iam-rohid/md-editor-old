@@ -48,13 +48,7 @@ const Notebook = () => {
           <SidebarItemGroup>
             {notes.map((note) => (
               <Link key={note.id} to={`note/${note.id}`}>
-                {({ isActive }) => (
-                  <NoteItem
-                    title={note.title}
-                    subtitle={`${moment(note.updatedAt).format("MMM DD, YY")}`}
-                    isActive={isActive}
-                  />
-                )}
+                {({ isActive }) => <NoteItem note={note} isActive={isActive} />}
               </Link>
             ))}
           </SidebarItemGroup>

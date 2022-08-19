@@ -11,16 +11,26 @@ const EditorToolbar = (props: Props) => {
   return (
     <div className="flex h-12 w-full items-center overflow-hidden border-b border-gray-100 px-2 dark:border-gray-800">
       {isEditing ? (
-        <input
-          type="text"
-          className="w-full flex-1 rounded-md border-none bg-transparent px-2 py-1 text-lg font-bold"
-          defaultValue={title}
-          onBlur={(e) => {
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
             setIsEditing(false);
-            onTitleChange(e.currentTarget.value);
+            onTitleChange((e.target as any)["title"].value);
           }}
-          autoFocus
-        />
+          className="w-full flex-1"
+        >
+          <input
+            type="text"
+            name="title"
+            className="w-full flex-1 rounded-md border-none bg-transparent px-2 py-1 text-lg font-bold"
+            defaultValue={title}
+            onBlur={(e) => {
+              setIsEditing(false);
+              onTitleChange(e.currentTarget.value);
+            }}
+            autoFocus
+          />
+        </form>
       ) : (
         <p
           className="w-full flex-1 truncate px-2 py-1 text-lg font-bold"

@@ -10,7 +10,17 @@ import { MdAdd } from "react-icons/md";
 import { createNote, useAppDispatch, useAppSelector } from "@mdotion/store";
 
 const All = () => {
-  const notes = useAppSelector((state) => state.notes.data);
+  const notes = useAppSelector((state) =>
+    [...state.notes.data].sort((n1, n2) => {
+      if (moment(n1.updatedAt).isAfter(moment(n2.updatedAt))) {
+        return -1;
+      }
+      if (moment(n1.updatedAt).isBefore(moment(n2.updatedAt))) {
+        return 1;
+      }
+      return 0;
+    })
+  );
   const dispatch = useAppDispatch();
   const onCreateNote = useCallback(() => {
     dispatch(
@@ -36,13 +46,7 @@ const All = () => {
           <SidebarItemGroup>
             {notes.map((note) => (
               <Link key={note.id} to={`note/${note.id}`}>
-                {({ isActive }) => (
-                  <NoteItem
-                    title={note.title}
-                    subtitle={`${moment(note.updatedAt).format("MMM DD, YY")}`}
-                    isActive={isActive}
-                  />
-                )}
+                {({ isActive }) => <NoteItem note={note} isActive={isActive} />}
               </Link>
             ))}
           </SidebarItemGroup>
