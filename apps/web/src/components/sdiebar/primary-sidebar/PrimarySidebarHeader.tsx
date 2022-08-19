@@ -1,7 +1,7 @@
 import SITE from "@/constants/SITE";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Popover } from "@headlessui/react";
-import { logOutAsync, useAppDispatch, useAppSelector } from "@mdotion/store";
+import { signOutAsync, useAppDispatch, useAppSelector } from "@mdotion/store";
 import { Link } from "@tanstack/react-location";
 import { useCallback } from "react";
 import { MdLightMode, MdDarkMode, MdPerson, MdLogout } from "react-icons/md";
@@ -12,7 +12,7 @@ const PrimarySidebarHeader = () => {
   const dispatch = useAppDispatch();
 
   const onLogOut = useCallback(() => {
-    dispatch(logOutAsync());
+    dispatch(signOutAsync());
   }, [dispatch]);
 
   if (!user) return null;

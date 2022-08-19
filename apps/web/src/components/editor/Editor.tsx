@@ -1,6 +1,6 @@
 import {
   Note,
-  updateNoteAsync,
+  updateNote,
   useAppDispatch,
   useAppSelector,
 } from "@mdotion/store";
@@ -22,9 +22,9 @@ const Editor = (props: Props) => {
   const handleTitleChange = useCallback(
     (value: string) => {
       dispatch(
-        updateNoteAsync({
+        updateNote({
           id: note.id,
-          body: {
+          dto: {
             title: value,
           },
         })
@@ -38,9 +38,9 @@ const Editor = (props: Props) => {
       if (body !== note?.body) {
         console.log("Saved");
         dispatch(
-          updateNoteAsync({
+          updateNote({
             id: note.id,
-            body: {
+            dto: {
               body: value,
             },
           })

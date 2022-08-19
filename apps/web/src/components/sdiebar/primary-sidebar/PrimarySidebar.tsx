@@ -7,8 +7,8 @@ import NotebooksList from "../NotebooksList";
 import TagsList from "../TagsList";
 import { useEffect } from "react";
 import {
-  getNotebooksAsync,
-  getAllNotesAsync,
+  getNotebooks,
+  getAllNotes,
   useAppDispatch,
   useAppSelector,
 } from "@mdotion/store";
@@ -20,10 +20,10 @@ const PrimarySidebar = () => {
 
   useEffect(() => {
     if (notebookStatus === "idle") {
-      dispatch(getNotebooksAsync());
+      dispatch(getNotebooks());
     }
     if (noteStatus === "idle") {
-      dispatch(getAllNotesAsync());
+      dispatch(getAllNotes());
     }
   }, [notebookStatus, noteStatus, dispatch]);
 

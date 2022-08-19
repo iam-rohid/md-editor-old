@@ -3,11 +3,7 @@ import SecondarySidebar from "@/components/sdiebar/secondary-sidebar/SecondarySi
 import SecondarySidebarHeader from "@/components/sdiebar/secondary-sidebar/SecondarySidebarHeader";
 import SidebarItemGroup from "@/components/sdiebar/SidebarItemGroup";
 import SidebarNav from "@/components/sdiebar/SidebarNav";
-import {
-  createNoteAsync,
-  useAppDispatch,
-  useAppSelector,
-} from "@mdotion/store";
+import { createNote, useAppDispatch, useAppSelector } from "@mdotion/store";
 import { Link, Outlet, useMatch } from "@tanstack/react-location";
 import moment from "moment";
 import { useCallback } from "react";
@@ -25,7 +21,7 @@ const Notebook = () => {
   const dispatch = useAppDispatch();
   const onCreateNote = useCallback(() => {
     dispatch(
-      createNoteAsync({
+      createNote({
         title: "Untitled",
         notebookId,
       })

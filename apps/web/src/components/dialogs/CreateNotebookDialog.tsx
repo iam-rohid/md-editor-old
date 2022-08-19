@@ -1,6 +1,6 @@
 import { Dialog } from "@headlessui/react";
 import {
-  createNotebookAsync,
+  createNotebook,
   CreateNotebookDto,
   useAppDispatch,
 } from "@mdotion/store";
@@ -20,7 +20,7 @@ const CreateNotebookDialog = (props: Props) => {
 
   const onSubmit = useCallback(
     (dto: CreateNotebookDto) => {
-      dispatch(createNotebookAsync(dto));
+      dispatch(createNotebook(dto));
       onClose();
     },
     [dispatch, onClose]

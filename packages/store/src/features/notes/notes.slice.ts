@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { NotesState } from "./notes.types";
 import {
-  createNoteAsync,
-  getAllNotesAsync,
-  updateNoteAsync,
-} from "./ntoes.actions";
+  createNote,
+  deleteNote,
+  getAllNotes,
+  updateNote,
+} from "./notes.actions";
 
 const initialState: NotesState = {
   status: "idle",
@@ -22,39 +23,48 @@ export const notesSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(getAllNotesAsync.pending, (state) => {
+      .addCase(getAllNotes.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(getAllNotesAsync.rejected, (state, action) => {
+      .addCase(getAllNotes.rejected, (state, action) => {
         state.status = "error";
         state.error = action.error;
       })
-      .addCase(getAllNotesAsync.fulfilled, (state, action) => {
+      .addCase(getAllNotes.fulfilled, (state, action) => {
         state.status = "success";
         state.data = action.payload;
       });
     builder
-      .addCase(createNoteAsync.rejected, (state, action) => {
+      .addCase(createNote.rejected, (state, action) => {
         state.status = "error";
         state.error = action.error;
       })
-      .addCase(createNoteAsync.fulfilled, (state, action) => {
+      .addCase(createNote.fulfilled, (state, action) => {
         state.status = "success";
         state.data = [...state.data, action.payload];
       });
     builder
-      .addCase(updateNoteAsync.rejected, (state, action) => {
+      .addCase(updateNote.rejected, (state, action) => {
         state.status = "error";
         state.error = action.error;
       })
-      .addCase(updateNoteAsync.fulfilled, (state, action) => {
+      .addCase(updateNote.fulfilled, (state, action) => {
         state.status = "success";
-        state.data = state.data.map((note) => {
-          if (note.id === action.payload.id) {
+        state.data = state.data.map((item) => {
+          if (item.id === action.payload.id) {
             return action.payload;
           }
-          return note;
+          return item;
         });
+      });
+    builder
+      .addCase(deleteNote.rejected, (state, action) => {
+        state.status = "error";
+        state.error = action.error;
+      })
+      .addCase(deleteNote.fulfilled, (state, action) => {
+        state.status = "success";
+        state.data = state.data.filter((item) => item.id !== action.payload.id);
       });
   },
 });

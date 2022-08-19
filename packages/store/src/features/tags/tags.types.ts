@@ -12,3 +12,15 @@ export interface TagsState {
   data: Tag[];
   error: any;
 }
+
+export interface CreateTagDto {
+  title: string;
+  description?: string;
+  color?: string;
+}
+
+export interface UpdateTagDto {
+  title?: string;
+  description?: string;
+  color?: string;
+}

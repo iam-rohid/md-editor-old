@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { UserState } from "./user.types";
 import {
   getCurrentUserAsync,
-  logOutAsync,
+  signOutAsync,
   signInWithEmailAsync,
   signUpWithEmailAsync,
 } from "./user.actions";
@@ -43,7 +43,7 @@ export const userSlice = createSlice({
       })
       .addCase(signInWithEmailAsync.fulfilled, (state, action) => {
         state.status = "success";
-        state.data = action.payload.user;
+        state.data = action.payload;
       });
     builder
       .addCase(signUpWithEmailAsync.pending, (state) => {
@@ -55,17 +55,17 @@ export const userSlice = createSlice({
       })
       .addCase(signUpWithEmailAsync.fulfilled, (state, action) => {
         state.status = "success";
-        state.data = action.payload.user;
+        state.data = action.payload;
       });
     builder
-      .addCase(logOutAsync.pending, (state) => {
+      .addCase(signOutAsync.pending, (state) => {
         state.status = "signingOut";
       })
-      .addCase(logOutAsync.rejected, (state, action) => {
+      .addCase(signOutAsync.rejected, (state, action) => {
         state.status = "error";
         state.error = action.error;
       })
-      .addCase(logOutAsync.fulfilled, (state, action) => {
+      .addCase(signOutAsync.fulfilled, (state, action) => {
         state.status = "success";
         state.data = null;
       });

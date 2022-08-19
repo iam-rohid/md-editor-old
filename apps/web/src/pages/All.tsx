@@ -7,18 +7,14 @@ import moment from "moment";
 import SidebarNav from "@/components/sdiebar/SidebarNav";
 import SecondarySidebarHeader from "@/components/sdiebar/secondary-sidebar/SecondarySidebarHeader";
 import { MdAdd } from "react-icons/md";
-import {
-  createNoteAsync,
-  useAppDispatch,
-  useAppSelector,
-} from "@mdotion/store";
+import { createNote, useAppDispatch, useAppSelector } from "@mdotion/store";
 
 const All = () => {
   const notes = useAppSelector((state) => state.notes.data);
   const dispatch = useAppDispatch();
   const onCreateNote = useCallback(() => {
     dispatch(
-      createNoteAsync({
+      createNote({
         title: "Untitled",
       })
     );

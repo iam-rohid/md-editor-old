@@ -1,3 +1,3 @@
 export * from "./notes.types";
 export * from "./notes.slice";
-export * from "./ntoes.actions";
+export * from "./notes.actions";

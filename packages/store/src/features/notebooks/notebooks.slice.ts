@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { NotebooksState } from "./notebooks.types";
-import { createNotebookAsync, getNotebooksAsync } from "./notebooks.actions";
+import {
+  createNotebook,
+  deleteNotebook,
+  getNotebooks,
+  updateNotebook,
+} from "./notebooks.actions";
 
 const initialState: NotebooksState = {
   status: "idle",
@@ -18,25 +23,48 @@ export const notebooksSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(getNotebooksAsync.pending, (state) => {
+      .addCase(getNotebooks.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(getNotebooksAsync.rejected, (state, action) => {
+      .addCase(getNotebooks.rejected, (state, action) => {
         state.status = "error";
         state.error = action.error;
       })
-      .addCase(getNotebooksAsync.fulfilled, (state, action) => {
+      .addCase(getNotebooks.fulfilled, (state, action) => {
         state.status = "success";
         state.data = action.payload;
       });
     builder
-      .addCase(createNotebookAsync.rejected, (state, action) => {
+      .addCase(createNotebook.rejected, (state, action) => {
         state.status = "error";
         state.error = action.error;
       })
-      .addCase(createNotebookAsync.fulfilled, (state, action) => {
+      .addCase(createNotebook.fulfilled, (state, action) => {
         state.status = "success";
         state.data = [...state.data, action.payload];
+      });
+    builder
+      .addCase(updateNotebook.rejected, (state, action) => {
+        state.status = "error";
+        state.error = action.error;
+      })
+      .addCase(updateNotebook.fulfilled, (state, action) => {
+        state.status = "success";
+        state.data = state.data.map((item) => {
+          if (item.id === action.payload.id) {
+            return action.payload;
+          }
+          return item;
+        });
+      });
+    builder
+      .addCase(deleteNotebook.rejected, (state, action) => {
+        state.status = "error";
+        state.error = action.error;
+      })
+      .addCase(deleteNotebook.fulfilled, (state, action) => {
+        state.status = "success";
+        state.data = state.data.filter((item) => item.id !== action.payload.id);
       });
   },
 });

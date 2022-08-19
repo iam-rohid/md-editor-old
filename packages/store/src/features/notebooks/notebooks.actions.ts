@@ -1,33 +1,41 @@
-import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ACCESS_TOKEN_KEY, API_URL } from "../../constants";
-import { CreateNotebookDto, Notebook } from "./notebooks.types";
+import type {
+  Notebook,
+  CreateNotebookDto,
+  UpdateNotebookDto,
+} from "./notebooks.types";
+import { axiosClient } from "../../libs/axios";
 
-export const getNotebooksAsync = createAsyncThunk(
-  "notebook/getAll",
+export const getNotebooks = createAsyncThunk(
+  "notebooks/getAll",
   async (): Promise<Notebook[]> => {
-    const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
-    const { data } = await axios.get(`${API_URL}/notebooks`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const { data } = await axiosClient.get("/notebooks");
     return data;
   }
 );
 
-export const createNotebookAsync = createAsyncThunk(
-  "notebook/create",
+export const createNotebook = createAsyncThunk(
+  "notebooks/create",
   async (dto: CreateNotebookDto): Promise<Notebook> => {
-    const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
-    const { data } = await axios.post(`${API_URL}/notebooks`, dto, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const { data } = await axiosClient.post("/notebooks", dto);
 
+    return data;
+  }
+);
+
+export const updateNotebook = createAsyncThunk(
+  "notebooks/update",
+  async (props: { id: string; dto: UpdateNotebookDto }): Promise<Notebook> => {
+    const { id, dto } = props;
+    const { data } = await axiosClient.patch(`/notebooks/${id}`, dto);
+    return data;
+  }
+);
+
+export const deleteNotebook = createAsyncThunk(
+  "notebooks/delete",
+  async (id: string): Promise<Notebook> => {
+    const { data } = await axiosClient.delete(`/notebooks/${id}`);
     return data;
   }
 );
