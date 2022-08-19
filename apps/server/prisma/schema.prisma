@@ -16,17 +16,19 @@ enum Role {
 }
 
 model User {
-  id        String     @id @default(cuid())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  email     String     @unique
-  password  String
-  fullname  String
-  bio       String?
-  photoURL  String?
-  role      Role       @default(USER)
-  notebooks Notebook[]
-  notes     Note[]
+  id          String        @id @default(cuid())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  email       String        @unique
+  password    String
+  fullname    String
+  bio         String?
+  photoURL    String?
+  role        Role          @default(USER)
+  notebooks   Notebook[]
+  notes       Note[]
+  tags        Tag[]
+  TagsOnNotes TagsOnNotes[]
 }
 
 model Notebook {
@@ -44,13 +46,37 @@ model Notebook {
 }
 
 model Note {
-  id         String    @id @default(cuid())
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id         String        @id @default(cuid())
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
   title      String
   body       String
   authorId   String
-  author     User      @relation(fields: [authorId], references: [id])
+  author     User          @relation(fields: [authorId], references: [id])
   notebookId String?
-  notebook   Notebook? @relation(fields: [notebookId], references: [id], onDelete: Cascade)
+  notebook   Notebook?     @relation(fields: [notebookId], references: [id], onDelete: Cascade)
+  tags       TagsOnNotes[]
+}
+
+model Tag {
+  id          String        @id @default(cuid())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  title       String
+  description String
+  authorId    String
+  author      User          @relation(fields: [authorId], references: [id])
+  notes       TagsOnNotes[]
+}
+
+model TagsOnNotes {
+  assignedAt   DateTime @default(now())
+  noteId       String
+  note         Note     @relation(fields: [noteId], references: [id])
+  tagId        String
+  tag          Tag      @relation(fields: [tagId], references: [id])
+  assignedById String
+  assignedBy   User     @relation(fields: [assignedById], references: [id])
+
+  @@id([noteId, tagId])
 }

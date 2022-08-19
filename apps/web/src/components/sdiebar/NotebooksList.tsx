@@ -9,7 +9,9 @@ import { useAppSelector } from "@mdotion/store";
 
 const NotebooksList = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { data, status } = useAppSelector((state) => state.notebooks);
+  const { data: notebooks, status } = useAppSelector(
+    (state) => state.notebooks
+  );
 
   const onRetry = useCallback(() => {}, []);
 
@@ -35,7 +37,7 @@ const NotebooksList = () => {
             <button onClick={onRetry}>Retry</button>
           </div>
         ) : (
-          data.map((notebook) => (
+          notebooks.map((notebook) => (
             <Link to={`notebook/${notebook.id}`} key={notebook.id}>
               {({ isActive }) => (
                 <SidebarItem
