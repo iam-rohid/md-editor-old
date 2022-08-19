@@ -66,4 +66,13 @@ export class NotebooksController {
     } = req;
     return this.notebooksService.remove(id, userId);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/notes')
+  notes(@Request() req: any, @Param('id') notebookId: string) {
+    const {
+      user: { userId },
+    } = req;
+    return this.notebooksService.notes(notebookId, userId);
+  }
 }

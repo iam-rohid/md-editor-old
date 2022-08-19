@@ -24,10 +24,11 @@ export const getFavoritesNotesAsync = async (): Promise<Note[]> => {
   return data;
 };
 
-export const getNotesAsync = async (id: string): Promise<Note[]> => {
-  console.log({ id });
+export const getNotesForNotebookAsync = async (
+  notebookId: string
+): Promise<Note[]> => {
   const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
-  const { data } = await axios.get(`${API_URL}/notes`, {
+  const { data } = await axios.get(`${API_URL}/notebooks/${notebookId}/notes`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`,

@@ -16,11 +16,11 @@ export interface Note {
 export type CreateNote = {
   title: string;
   body?: string;
-  parentId?: string;
+  notebookId?: string;
 };
 
 export type UpdateNote = {
   title?: string;
   body?: string;
-  parentId?: string;
+  notebookId?: string;
 };

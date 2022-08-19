@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 import { createNoteAsync, getAllNotesAsync } from "@/api/noteApi";
 import SecondarySidebar from "@/components/SecondarySidebar";
 import { Link, Outlet, useNavigate } from "@tanstack/react-location";
@@ -13,12 +13,11 @@ import { MdAdd } from "react-icons/md";
 const All = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const queryKey = useRef(["notebooks", "all"]);
-  const notes = useQuery(queryKey.current, getAllNotesAsync);
+  const notes = useQuery(["notebooks", "all"], getAllNotesAsync);
 
   const createNoteMutation = useMutation(createNoteAsync, {
     onSuccess: (data) => {
-      queryClient.invalidateQueries(queryKey.current);
+      queryClient.invalidateQueries(["notebooks", "all"]);
       navigate({
         to: `notes/${data.id}`,
       });

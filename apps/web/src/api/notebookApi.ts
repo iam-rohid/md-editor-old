@@ -27,3 +27,16 @@ export const getNotebooksAsync = async (): Promise<Notebook[]> => {
   });
   return data;
 };
+
+export const getNotebookAsync = async (
+  notebookId: string
+): Promise<Notebook> => {
+  const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+  const { data } = await axios.get(`${API_URL}/notebooks/${notebookId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return data;
+};

@@ -7,11 +7,9 @@ import SidebarNav from "@/components/SidebarNav";
 import { Link, Outlet } from "@tanstack/react-location";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
-import { useRef } from "react";
 
 const Favorites = () => {
-  const queryKey = useRef(["notebooks", "favorites"]);
-  const notes = useQuery(queryKey.current, getFavoritesNotesAsync);
+  const notes = useQuery(["notebooks", "favorites"], getFavoritesNotesAsync);
 
   return (
     <>

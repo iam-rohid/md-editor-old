@@ -34,7 +34,6 @@ export class NotebooksService {
   }
 
   async findAll(authorId: string) {
-    console.log(authorId);
     try {
       return await this.prisma.notebook.findMany({
         where: {
@@ -89,6 +88,19 @@ export class NotebooksService {
     return this.prisma.notebook.delete({
       where: {
         id,
+      },
+    });
+  }
+
+  async notes(notebookId: string, authorId: string) {
+    return this.prisma.note.findMany({
+      where: {
+        notebook: {
+          id: notebookId,
+        },
+        author: {
+          id: authorId,
+        },
       },
     });
   }
