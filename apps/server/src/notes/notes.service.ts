@@ -7,20 +7,21 @@ import { UpdateNoteDto } from './dto/update-note.dto';
 export class NotesService {
   constructor(private prisma: PrismaService) {}
 
-  create(createNoteDto: CreateNoteDto, authorId: string) {
+  create(dto: CreateNoteDto, authorId: string) {
     return this.prisma.note.create({
       data: {
-        title: createNoteDto.title,
-        body: createNoteDto.body || '',
+        title: dto.title,
+        body: dto.body || '',
+        description: dto.description,
         author: {
           connect: {
             id: authorId,
           },
         },
-        notebook: createNoteDto.notebookId
+        notebook: dto.notebookId
           ? {
               connect: {
-                id: createNoteDto.notebookId,
+                id: dto.notebookId,
               },
             }
           : undefined,
@@ -45,17 +46,18 @@ export class NotesService {
     });
   }
 
-  async update(id: string, updateNoteDto: UpdateNoteDto, authorId: string) {
+  async update(id: string, dto: UpdateNoteDto, authorId: string) {
     await this.findOne(id, authorId);
     return this.prisma.note.update({
       where: { id },
       data: {
-        title: updateNoteDto.title,
-        body: updateNoteDto.body,
-        notebook: updateNoteDto.notebookId
+        title: dto.title,
+        body: dto.body,
+        description: dto.description,
+        notebook: dto.notebookId
           ? {
               connect: {
-                id: updateNoteDto.notebookId,
+                id: dto.notebookId,
               },
             }
           : undefined,

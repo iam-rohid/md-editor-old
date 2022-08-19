@@ -46,16 +46,17 @@ model Notebook {
 }
 
 model Note {
-  id         String        @id @default(cuid())
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
-  title      String
-  body       String
-  authorId   String
-  author     User          @relation(fields: [authorId], references: [id])
-  notebookId String?
-  notebook   Notebook?     @relation(fields: [notebookId], references: [id], onDelete: Cascade)
-  tags       TagsOnNotes[]
+  id          String        @id @default(cuid())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  title       String
+  description String?
+  body        String
+  authorId    String
+  author      User          @relation(fields: [authorId], references: [id])
+  notebookId  String?
+  notebook    Notebook?     @relation(fields: [notebookId], references: [id], onDelete: Cascade)
+  tags        TagsOnNotes[]
 }
 
 model Tag {
