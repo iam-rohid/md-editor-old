@@ -14,7 +14,7 @@ import {
 } from "@mdotion/store";
 
 const All = () => {
-  const notes = useAppSelector((state) => state.note.data);
+  const notes = useAppSelector((state) => state.notes.data);
   const dispatch = useAppDispatch();
   const onCreateNote = useCallback(() => {
     dispatch(

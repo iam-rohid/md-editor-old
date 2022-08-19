@@ -9,7 +9,7 @@ import { useAppSelector } from "@mdotion/store";
 
 const NotebooksList = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { data, status } = useAppSelector((state) => state.notebook);
+  const { data, status } = useAppSelector((state) => state.notebooks);
 
   const onRetry = useCallback(() => {}, []);
 

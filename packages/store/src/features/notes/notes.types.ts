@@ -8,7 +8,7 @@ export interface Note {
   notebookId?: string;
 }
 
-export interface NoteState {
+export interface NotesState {
   status: "idle" | "loading" | "error" | "success";
   data: Note[];
   error: any;

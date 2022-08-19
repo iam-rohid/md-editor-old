@@ -18,8 +18,8 @@ const Notebook = () => {
     params: { notebookId },
   } = useMatch();
   const { notebook, notes } = useAppSelector((state) => ({
-    notebook: state.notebook.data.find((n) => n.id === notebookId),
-    notes: state.note.data.filter((n) => n.notebookId === notebookId),
+    notebook: state.notebooks.data.find((n) => n.id === notebookId),
+    notes: state.notes.data.filter((n) => n.notebookId === notebookId),
   }));
 
   const dispatch = useAppDispatch();

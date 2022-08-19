@@ -1,15 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import {
-  noteReducer,
-  notebookReducer,
+  notesReducer,
+  notebooksReducer,
   userReducer,
   mdeReducer,
 } from "../features";
 
 export const store = configureStore({
   reducer: {
-    notebook: notebookReducer,
-    note: noteReducer,
+    notebooks: notebooksReducer,
+    notes: notesReducer,
     user: userReducer,
     mde: mdeReducer,
   },

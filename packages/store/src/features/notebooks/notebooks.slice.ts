@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { NotebookState } from "./notebook.types";
-import { createNotebookAsync, getNotebooksAsync } from "./notebook.actions";
+import type { NotebooksState } from "./notebooks.types";
+import { createNotebookAsync, getNotebooksAsync } from "./notebooks.actions";
 
-const initialState: NotebookState = {
+const initialState: NotebooksState = {
   status: "idle",
   data: [],
   error: null,
 };
 
-export const notebookSlice = createSlice({
+export const notebooksSlice = createSlice({
   name: "notebook",
   initialState,
   reducers: {
@@ -41,5 +41,5 @@ export const notebookSlice = createSlice({
   },
 });
 
-export const notebookActions = notebookSlice.actions;
-export const notebookReducer = notebookSlice.reducer;
+export const notebooksActions = notebooksSlice.actions;
+export const notebooksReducer = notebooksSlice.reducer;

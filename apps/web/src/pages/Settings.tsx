@@ -2,7 +2,6 @@ import SecondarySidebar from "@/components/SecondarySidebar";
 import SidebarButton from "@/components/SidebarButton";
 import SidebarItemGroup from "@/components/SidebarItemGroup";
 import { Link, Outlet, useRouter } from "@tanstack/react-location";
-import React from "react";
 import { MdPalette, MdPerson } from "react-icons/md";
 
 const Settings = () => {

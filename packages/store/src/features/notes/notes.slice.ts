@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { NoteState } from "./note.types";
+import type { NotesState } from "./notes.types";
 import {
   createNoteAsync,
   getAllNotesAsync,
   updateNoteAsync,
-} from "./ntoe.actions";
+} from "./ntoes.actions";
 
-const initialState: NoteState = {
+const initialState: NotesState = {
   status: "idle",
   data: [],
   error: null,
 };
 
-export const noteSlice = createSlice({
+export const notesSlice = createSlice({
   name: "note",
   initialState,
   reducers: {
@@ -59,5 +59,5 @@ export const noteSlice = createSlice({
   },
 });
 
-export const noteActions = noteSlice.actions;
-export const noteReducer = noteSlice.reducer;
+export const notesActions = notesSlice.actions;
+export const notesReducer = notesSlice.reducer;

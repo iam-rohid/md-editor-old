@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { CreateNoteDto, Note, UpdateNoteDto } from "./note.types";
+import { CreateNoteDto, Note, UpdateNoteDto } from "./notes.types";
 import axios from "axios";
 import { ACCESS_TOKEN_KEY, API_URL } from "../../constants";
 

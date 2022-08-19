@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ACCESS_TOKEN_KEY, API_URL } from "../../constants";
-import { CreateNotebookDto, Notebook } from "./notebook.types";
+import { CreateNotebookDto, Notebook } from "./notebooks.types";
 
 export const getNotebooksAsync = createAsyncThunk(
   "notebook/getAll",

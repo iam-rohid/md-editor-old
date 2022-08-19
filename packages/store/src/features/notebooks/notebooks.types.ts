@@ -1,6 +1,3 @@
-import type { Note } from "../note";
-import type { User } from "../user";
-
 export interface Notebook {
   id: string;
   createdAt: string;
@@ -8,11 +5,7 @@ export interface Notebook {
   title: string;
   description?: string;
   authorId: string;
-  author?: User;
   parentId?: string;
-  parent?: Notebook;
-  notebooks?: Notebook[];
-  notes?: Note[];
 }
 
 export type CreateNotebookDto = {
@@ -27,15 +20,8 @@ export type UpdateNotebookDto = {
   parentId?: string;
 };
 
-export interface NotebookState {
+export interface NotebooksState {
   status: "idle" | "loading" | "success" | "error";
   error: any;
   data: Notebook[];
-  // favorites: string[];
-  // tree: {
-  //   notebook: string;
-  //   notebooks: string[];
-  //   notes: string[];
-  //   isExpanded: boolean;
-  // }[];
 }

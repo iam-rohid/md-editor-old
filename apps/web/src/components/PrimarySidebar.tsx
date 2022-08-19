@@ -14,8 +14,8 @@ import {
 } from "@mdotion/store";
 
 const PrimarySidebar = () => {
-  const notebookStatus = useAppSelector((state) => state.notebook.status);
-  const noteStatus = useAppSelector((state) => state.note.status);
+  const notebookStatus = useAppSelector((state) => state.notebooks.status);
+  const noteStatus = useAppSelector((state) => state.notes.status);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

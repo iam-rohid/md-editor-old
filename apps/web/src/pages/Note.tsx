@@ -8,7 +8,7 @@ const Note = () => {
     params: { noteId },
   } = match;
   const note = useAppSelector((state) =>
-    state.note.data.find((note) => note.id === noteId)
+    state.notes.data.find((note) => note.id === noteId)
   );
 
   if (!note) {
