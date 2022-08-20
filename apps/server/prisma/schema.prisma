@@ -30,6 +30,7 @@ model User {
   tags          Tag[]
   tagsOnNotes   TagsOnNotes[]
   favoriteNotes FavoriteNotes[]
+  pinnedNotes   PinnedNotes[]
 }
 
 model Notebook {
@@ -53,12 +54,14 @@ model Note {
   title         String
   description   String?
   body          String
+  isDeleted     Boolean?
   authorId      String
-  author        User            @relation(fields: [authorId], references: [id])
+  author        User            @relation(fields: [authorId], references: [id], onDelete: Cascade)
   notebookId    String?
   notebook      Notebook?       @relation(fields: [notebookId], references: [id], onDelete: Cascade)
   tags          TagsOnNotes[]
   favoriteNotes FavoriteNotes[]
+  pinnedNotes   PinnedNotes[]
 }
 
 model Tag {
@@ -68,18 +71,18 @@ model Tag {
   title       String
   description String
   authorId    String
-  author      User          @relation(fields: [authorId], references: [id])
+  author      User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
   notes       TagsOnNotes[]
 }
 
 model TagsOnNotes {
   assignedAt   DateTime @default(now())
   noteId       String
-  note         Note     @relation(fields: [noteId], references: [id])
+  note         Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
   tagId        String
-  tag          Tag      @relation(fields: [tagId], references: [id])
+  tag          Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
   assignedById String
-  assignedBy   User     @relation(fields: [assignedById], references: [id])
+  assignedBy   User     @relation(fields: [assignedById], references: [id], onDelete: Cascade)
 
   @@id([noteId, tagId])
 }
@@ -87,9 +90,19 @@ model TagsOnNotes {
 model FavoriteNotes {
   assignedAt DateTime @default(now())
   noteId     String
-  note       Note     @relation(fields: [noteId], references: [id])
+  note       Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
   userId     String
-  user       User     @relation(fields: [userId], references: [id])
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([noteId, userId])
+}
+
+model PinnedNotes {
+  assignedAt DateTime @default(now())
+  noteId     String
+  note       Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([noteId, userId])
 }

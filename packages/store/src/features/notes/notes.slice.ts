@@ -5,6 +5,7 @@ import {
   deleteNote,
   getAllFavoriteNotes,
   getAllNotes,
+  getAllPinnedNotes,
   updateNote,
 } from "./notes.actions";
 
@@ -12,6 +13,7 @@ const initialState: NotesState = {
   status: "idle",
   data: [],
   favoriteNotes: [],
+  pinnedNotes: [],
   error: null,
 };
 
@@ -43,6 +45,27 @@ export const notesSlice = createSlice({
         );
       }
     },
+    changePinned: (
+      state,
+      action: PayloadAction<{ id: string; isPinned: boolean }>
+    ) => {
+      if (
+        action.payload.isPinned &&
+        !state.pinnedNotes.includes(action.payload.id)
+      ) {
+        state.pinnedNotes = [...state.pinnedNotes, action.payload.id];
+        return;
+      }
+
+      if (
+        !action.payload.isPinned &&
+        state.pinnedNotes.includes(action.payload.id)
+      ) {
+        state.pinnedNotes = state.pinnedNotes.filter(
+          (f) => f !== action.payload.id
+        );
+      }
+    },
   },
   extraReducers(builder) {
     builder
@@ -59,6 +82,9 @@ export const notesSlice = createSlice({
       });
     builder.addCase(getAllFavoriteNotes.fulfilled, (state, action) => {
       state.favoriteNotes = action.payload;
+    });
+    builder.addCase(getAllPinnedNotes.fulfilled, (state, action) => {
+      state.pinnedNotes = action.payload;
     });
     builder
       .addCase(createNote.rejected, (state, action) => {

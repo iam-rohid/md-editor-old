@@ -35,6 +35,11 @@ export class NotesController {
   favoriteNotes(@Request() req: any) {
     return this.notesService.favoriteNotes(req.user.userId);
   }
+  @UseGuards(JwtAuthGuard)
+  @Get('pinned')
+  pinnedNotes(@Request() req: any) {
+    return this.notesService.pinnedNotes(req.user.userId);
+  }
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')

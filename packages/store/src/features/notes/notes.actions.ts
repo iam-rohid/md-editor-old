@@ -8,6 +8,7 @@ export const getAllNotes = createAsyncThunk(
   async (_, { dispatch }): Promise<Note[]> => {
     const { data } = await axiosClient.get("/notes");
     dispatch(getAllFavoriteNotes());
+    dispatch(getAllPinnedNotes());
     return data;
   }
 );
@@ -16,6 +17,14 @@ export const getAllFavoriteNotes = createAsyncThunk(
   "notes/favorites",
   async (): Promise<string[]> => {
     const { data } = await axiosClient.get("/notes/favorites");
+    return data.map((note: Note) => note.id);
+  }
+);
+
+export const getAllPinnedNotes = createAsyncThunk(
+  "notes/pinned",
+  async (): Promise<string[]> => {
+    const { data } = await axiosClient.get("/notes/pinned");
     return data.map((note: Note) => note.id);
   }
 );
@@ -41,6 +50,14 @@ export const updateNote = createAsyncThunk(
         notesActions.changeFavorite({
           id,
           isFavorite: dto.isFavorite,
+        })
+      );
+    }
+    if (dto.isPinned !== undefined) {
+      dispatch(
+        notesActions.changePinned({
+          id,
+          isPinned: dto.isPinned,
         })
       );
     }

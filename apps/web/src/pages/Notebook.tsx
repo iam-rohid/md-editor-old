@@ -14,29 +14,28 @@ const Notebook = () => {
   const {
     params: { notebookId },
   } = useMatch();
-  const notebook = useAppSelector((state) => {
+  const dispatch = useAppDispatch();
+  const { notebook, notes, pinned } = useAppSelector((state) => {
     let notebook = state.notebooks.data.find((n) => n.id === notebookId);
-    if (notebook) {
-      let notes = state.notes.data
-        .filter((n) => n.notebookId === notebookId)
-        .sort((n1, n2) => {
-          if (moment(n1.updatedAt).isAfter(moment(n2.updatedAt))) {
-            return -1;
-          }
-          if (moment(n1.updatedAt).isBefore(moment(n2.updatedAt))) {
-            return 1;
-          }
-          return 0;
-        });
-      notebook = {
-        ...notebook,
-        notes,
-      };
-    }
-    return notebook;
+    let notes = state.notes.data
+      .filter((note) => !note.isDeleted)
+      .filter((n) => n.notebookId === notebookId)
+      .sort((n1, n2) => {
+        if (moment(n1.updatedAt).isAfter(moment(n2.updatedAt))) {
+          return -1;
+        }
+        if (moment(n1.updatedAt).isBefore(moment(n2.updatedAt))) {
+          return 1;
+        }
+        return 0;
+      });
+    return {
+      notebook,
+      pinned: notes.filter((note) => state.notes.pinnedNotes.includes(note.id)),
+      notes: notes.filter((note) => !state.notes.pinnedNotes.includes(note.id)),
+    };
   });
 
-  const dispatch = useAppDispatch();
   const onCreateNote = useCallback(() => {
     dispatch(
       createNote({
@@ -59,11 +58,21 @@ const Notebook = () => {
             label="Create new note"
             onClick={onCreateNote}
           />
-          <IconButton icon={<MdFilterList />} label="Delete Note" />
         </SecondarySidebarHeader>
         <SidebarNav>
+          {pinned.length > 0 && (
+            <SidebarItemGroup title="Pinned">
+              {pinned.map((note) => (
+                <Link key={note.id} to={`note/${note.id}`}>
+                  {({ isActive }) => (
+                    <NoteItem note={note} isActive={isActive} />
+                  )}
+                </Link>
+              ))}
+            </SidebarItemGroup>
+          )}
           <SidebarItemGroup>
-            {notebook.notes?.map((note) => (
+            {notes.map((note) => (
               <Link key={note.id} to={`note/${note.id}`}>
                 {({ isActive }) => <NoteItem note={note} isActive={isActive} />}
               </Link>

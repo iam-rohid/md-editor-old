@@ -53,6 +53,22 @@ export class NotesService {
     });
   }
 
+  pinnedNotes(authorId: string) {
+    return this.prisma.note.findMany({
+      where: {
+        authorId,
+        pinnedNotes: {
+          some: {
+            userId: authorId,
+          },
+        },
+      },
+      select: {
+        id: true,
+      },
+    });
+  }
+
   findOne(id: string, authorId: string) {
     return this.prisma.note.findFirst({
       where: {
@@ -68,20 +84,31 @@ export class NotesService {
       if (dto.isFavorite) {
         await this.prisma.favoriteNotes.create({
           data: {
-            user: {
-              connect: {
-                id: authorId,
-              },
-            },
-            note: {
-              connect: {
-                id: noteId,
-              },
-            },
+            noteId: noteId,
+            userId: authorId,
           },
         });
       } else {
         await this.prisma.favoriteNotes.delete({
+          where: {
+            noteId_userId: {
+              noteId: noteId,
+              userId: authorId,
+            },
+          },
+        });
+      }
+    }
+    if (typeof dto.isPinned === 'boolean') {
+      if (dto.isPinned) {
+        await this.prisma.pinnedNotes.create({
+          data: {
+            noteId: noteId,
+            userId: authorId,
+          },
+        });
+      } else {
+        await this.prisma.pinnedNotes.delete({
           where: {
             noteId_userId: {
               noteId: noteId,
@@ -104,6 +131,7 @@ export class NotesService {
               },
             }
           : undefined,
+        isDeleted: dto.isDeleted,
       },
     });
   }

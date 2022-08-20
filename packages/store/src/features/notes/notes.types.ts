@@ -10,12 +10,14 @@ export interface Note {
   authorId: string;
   notebookId?: string;
   notebook?: Notebook;
+  isDeleted?: boolean;
 }
 
 export interface NotesState {
   status: "idle" | "loading" | "error" | "success";
   data: Note[];
   favoriteNotes: string[];
+  pinnedNotes: string[];
   error: any;
 }
 
@@ -32,4 +34,6 @@ export type UpdateNoteDto = {
   notebookId?: string;
   description?: string;
   isFavorite?: boolean;
+  isDeleted?: boolean;
+  isPinned?: boolean;
 };

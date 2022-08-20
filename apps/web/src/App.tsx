@@ -22,6 +22,7 @@ import Notebook from "./pages/Notebook";
 import Settings from "./pages/Settings";
 import SignUpPage from "./pages/SignUpPage";
 import Tag from "./pages/Tag";
+import Trash from "./pages/Trash";
 
 const location = new ReactLocation();
 
@@ -60,6 +61,11 @@ const routes: Route<DefaultGenerics>[] = [
       {
         path: "favorites",
         element: <Favorites />,
+        children: noteRoutes,
+      },
+      {
+        path: "trash",
+        element: <Trash />,
         children: noteRoutes,
       },
       {

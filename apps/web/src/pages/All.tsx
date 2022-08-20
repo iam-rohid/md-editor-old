@@ -11,8 +11,8 @@ import { createNote, useAppDispatch, useAppSelector } from "@mdotion/store";
 import IconButton from "@/components/IconButton";
 
 const All = () => {
-  const notes = useAppSelector((state) => {
-    let notes = [...state.notes.data];
+  const { notes, pinned } = useAppSelector((state) => {
+    let notes = state.notes.data.filter((note) => !note.isDeleted);
 
     notes = notes.map((note) => {
       if (note.notebookId) {
@@ -36,7 +36,10 @@ const All = () => {
       return 0;
     });
 
-    return notes;
+    return {
+      pinned: notes.filter((note) => state.notes.pinnedNotes.includes(note.id)),
+      notes: notes.filter((note) => !state.notes.pinnedNotes.includes(note.id)),
+    };
   });
   const dispatch = useAppDispatch();
   const onCreateNote = useCallback(() => {
@@ -56,9 +59,19 @@ const All = () => {
             label="Create new note"
             onClick={onCreateNote}
           />
-          <IconButton icon={<MdFilterList />} label="Delete Note" />
         </SecondarySidebarHeader>
         <SidebarNav>
+          {pinned.length > 0 && (
+            <SidebarItemGroup title="Pinned">
+              {pinned.map((note) => (
+                <Link key={note.id} to={`note/${note.id}`}>
+                  {({ isActive }) => (
+                    <NoteItem note={note} isActive={isActive} />
+                  )}
+                </Link>
+              ))}
+            </SidebarItemGroup>
+          )}
           <SidebarItemGroup>
             {notes.map((note) => (
               <Link key={note.id} to={`note/${note.id}`}>

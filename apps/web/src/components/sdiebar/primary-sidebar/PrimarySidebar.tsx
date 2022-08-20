@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-location";
-import { MdList, MdSearch, MdSettings, MdStar } from "react-icons/md";
+import { MdDelete, MdList, MdSearch, MdSettings, MdStar } from "react-icons/md";
 import SidebarItem from "../SidebarItem";
 import SidebarItemGroup from "../SidebarItemGroup";
 import PrimarySidebarHeader from "./PrimarySidebarHeader";
@@ -52,6 +52,15 @@ const PrimarySidebar = () => {
               <SidebarItem
                 icon={<MdStar />}
                 label="Favorites"
+                isActive={isActive}
+              />
+            )}
+          </Link>
+          <Link to="trash">
+            {({ isActive }) => (
+              <SidebarItem
+                icon={<MdDelete />}
+                label="Trash"
                 isActive={isActive}
               />
             )}
