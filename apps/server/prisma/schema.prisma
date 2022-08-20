@@ -16,19 +16,20 @@ enum Role {
 }
 
 model User {
-  id          String        @id @default(cuid())
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  email       String        @unique
-  password    String
-  fullname    String
-  bio         String?
-  photoURL    String?
-  role        Role          @default(USER)
-  notebooks   Notebook[]
-  notes       Note[]
-  tags        Tag[]
-  TagsOnNotes TagsOnNotes[]
+  id            String          @id @default(cuid())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  email         String          @unique
+  password      String
+  fullname      String
+  bio           String?
+  photoURL      String?
+  role          Role            @default(USER)
+  notebooks     Notebook[]
+  notes         Note[]
+  tags          Tag[]
+  tagsOnNotes   TagsOnNotes[]
+  favoriteNotes FavoriteNotes[]
 }
 
 model Notebook {
@@ -46,17 +47,18 @@ model Notebook {
 }
 
 model Note {
-  id          String        @id @default(cuid())
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  title       String
-  description String?
-  body        String
-  authorId    String
-  author      User          @relation(fields: [authorId], references: [id])
-  notebookId  String?
-  notebook    Notebook?     @relation(fields: [notebookId], references: [id], onDelete: Cascade)
-  tags        TagsOnNotes[]
+  id            String          @id @default(cuid())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  title         String
+  description   String?
+  body          String
+  authorId      String
+  author        User            @relation(fields: [authorId], references: [id])
+  notebookId    String?
+  notebook      Notebook?       @relation(fields: [notebookId], references: [id], onDelete: Cascade)
+  tags          TagsOnNotes[]
+  favoriteNotes FavoriteNotes[]
 }
 
 model Tag {
@@ -80,4 +82,14 @@ model TagsOnNotes {
   assignedBy   User     @relation(fields: [assignedById], references: [id])
 
   @@id([noteId, tagId])
+}
+
+model FavoriteNotes {
+  assignedAt DateTime @default(now())
+  noteId     String
+  note       Note     @relation(fields: [noteId], references: [id])
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@id([noteId, userId])
 }

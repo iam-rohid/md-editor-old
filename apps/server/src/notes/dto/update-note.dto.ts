@@ -3,4 +3,5 @@ export class UpdateNoteDto {
   body?: string;
   description?: string;
   notebookId?: string | null;
+  isFavorite?: boolean;
 }

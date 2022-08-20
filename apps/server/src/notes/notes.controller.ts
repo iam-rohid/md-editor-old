@@ -31,6 +31,12 @@ export class NotesController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('favorites')
+  favoriteNotes(@Request() req: any) {
+    return this.notesService.favoriteNotes(req.user.userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string, @Request() req: any) {
     return this.notesService.findOne(id, req.user.userId);
