@@ -4,9 +4,9 @@ import { useCallback, useEffect, useState } from "react";
 import EditorToolbar from "./EditorToolbar";
 import useCodeMirror, {
   getEditorState,
-  updateListener,
+  updateListenerCamp,
 } from "@/hooks/useCodeMirror";
-
+import removeMD from "remove-markdown";
 type Props = {
   note: Note;
 };
@@ -14,48 +14,41 @@ type Props = {
 const Editor = (props: Props) => {
   const { note } = props;
   const [noteId, setNoteId] = useState("");
-  const [body, setBody] = useState("");
+  const [body, setBody] = useState<string | null>(null);
   const { editorRef, editorView } = useCodeMirror(note.body);
   const dispatch = useAppDispatch();
 
-  const handleTitleChange = useCallback(
-    (value: string) => {
-      if (note.title === value) return;
-
-      dispatch(
-        updateNote({
-          id: note.id,
-          dto: {
-            title: value,
-          },
-        })
-      );
-    },
-    [dispatch, note]
-  );
-
   const handleBodyUpdate = useCallback(
     (value: string) => {
-      if (body !== note?.body) {
-        console.log("Saved");
+      if (value !== note?.body) {
+        const matches = value
+          .split(/\n/)
+          .filter(Boolean)
+          .slice(0, 2)
+          .map((block) => removeMD(block));
+        const title = matches[0];
+        const description = matches[1];
+
         dispatch(
           updateNote({
             id: note.id,
             dto: {
               body: value,
+              title: title?.slice(0, 100) || "",
+              description: description?.slice(0, 200) || "",
             },
           })
         );
       }
     },
-    [body, dispatch, note?.body, note.id]
+    [dispatch, note]
   );
 
   useEffect(() => {
     if (editorView && noteId !== note.id) {
       editorView.setState(getEditorState(note.body));
       editorView.dispatch({
-        effects: updateListener.reconfigure(
+        effects: updateListenerCamp.reconfigure(
           EditorView.updateListener.of((update) => {
             if (update.docChanged) {
               setBody(String(update.state.doc));
@@ -63,13 +56,16 @@ const Editor = (props: Props) => {
           })
         ),
       });
+      editorView.scrollDOM.scrollTo({
+        top: 0,
+      });
       setNoteId(note.id);
       setBody(note.body || "");
     }
   }, [note, noteId, editorView]);
 
   useEffect(() => {
-    if (!body) return;
+    if (body === null) return;
     const timeout = setTimeout(() => {
       handleBodyUpdate(body);
     }, 500);
@@ -80,7 +76,7 @@ const Editor = (props: Props) => {
 
   return (
     <div className="flex h-full w-full flex-1 flex-col overflow-hidden bg-white dark:bg-black">
-      <EditorToolbar title={note.title} onTitleChange={handleTitleChange} />
+      <EditorToolbar note={note} />
       <div className="flex h-full w-full flex-1 overflow-hidden">
         <div
           className="relative h-full w-full flex-1 bg-white dark:bg-black"

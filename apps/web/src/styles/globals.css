@@ -24,10 +24,10 @@ body {
   @apply outline-none;
 }
 .cm-editor .cm-content {
-  @apply mr-auto max-w-2xl pt-8 pb-96 leading-6 caret-white dark:text-white;
+  @apply mx-auto max-w-2xl leading-6 caret-white dark:text-white;
 }
 .cm-editor .cm-gutters {
-  @apply ml-auto border-none bg-transparent;
+  @apply border-none bg-transparent;
 }
 .cm-editor .cm-gutter.cm-lineNumbers {
   display: none !important;
@@ -43,4 +43,12 @@ body {
 }
 .cm-editor .cm-cursor {
   @apply border-l-2 border-yellow-400;
+}
+
+.cm-editor .cm-selectionBackground {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+.cm-editor.cm-focused .cm-selectionBackground {
+  @apply bg-gray-200 dark:bg-gray-700;
 }

@@ -1,44 +1,16 @@
-import { useState } from "react";
+import { Note } from "@mdotion/store";
 
 type Props = {
-  title: string;
-  onTitleChange: (value: string) => void;
+  note: Note;
 };
 
 const EditorToolbar = (props: Props) => {
-  const { title, onTitleChange } = props;
-  const [isEditing, setIsEditing] = useState(false);
+  const { note } = props;
   return (
     <div className="flex h-12 w-full items-center overflow-hidden border-b border-gray-100 px-2 dark:border-gray-800">
-      {isEditing ? (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setIsEditing(false);
-            onTitleChange((e.target as any)["title"].value);
-          }}
-          className="w-full flex-1"
-        >
-          <input
-            type="text"
-            name="title"
-            className="w-full flex-1 rounded-md border-none bg-transparent px-2 py-1 text-lg font-bold"
-            defaultValue={title}
-            onBlur={(e) => {
-              setIsEditing(false);
-              onTitleChange(e.currentTarget.value);
-            }}
-            autoFocus
-          />
-        </form>
-      ) : (
-        <p
-          className="w-full flex-1 truncate px-2 py-1 text-lg font-bold"
-          onClick={() => setIsEditing(true)}
-        >
-          {title}
-        </p>
-      )}
+      <p className="flex-1 truncate px-2 text-lg font-medium">
+        {note.title || "New Note"}
+      </p>
     </div>
   );
 };
