@@ -10,7 +10,7 @@ a {
 }
 
 body {
-  @apply bg-white text-black dark:bg-black dark:text-white;
+  @apply bg-white text-gray-900 dark:bg-gray-900 dark:text-white;
 }
 
 .dark {
@@ -50,5 +50,5 @@ body {
 }
 
 .cm-editor.cm-focused .cm-selectionBackground {
-  @apply bg-gray-200 dark:bg-gray-700;
+  @apply bg-gray-200 dark:bg-gray-600;
 }

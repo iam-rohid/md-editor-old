@@ -75,11 +75,11 @@ const Editor = (props: Props) => {
   }, [body, handleBodyUpdate, note]);
 
   return (
-    <div className="flex h-full w-full flex-1 flex-col overflow-hidden bg-white dark:bg-black">
+    <div className="flex h-full w-full flex-1 flex-col overflow-hidden bg-white dark:bg-gray-900">
       <EditorToolbar note={note} />
       <div className="flex h-full w-full flex-1 overflow-hidden">
         <div
-          className="relative h-full w-full flex-1 bg-white dark:bg-black"
+          className="relative h-full w-full flex-1 bg-white dark:bg-gray-900"
           ref={editorRef}
         />
       </div>

@@ -38,7 +38,7 @@ const LogInPage = () => {
               {
                 "border-red-500 dark:border-red-500":
                   !!formData.formState.errors.email,
-                "border-gray-100 hover:border-gray-200 dark:border-gray-800 dark:hover:border-gray-700":
+                "border-gray-100 hover:border-gray-200 dark:border-gray-700 dark:hover:border-gray-600":
                   !formData.formState.errors.email,
               }
             )}
@@ -65,7 +65,7 @@ const LogInPage = () => {
                 {
                   "border-red-500 dark:border-red-500":
                     !!formData.formState.errors.password,
-                  "border-gray-100 hover:border-gray-200 dark:border-gray-800 dark:hover:border-gray-700":
+                  "border-gray-100 hover:border-gray-200 dark:border-gray-700 dark:hover:border-gray-600":
                     !formData.formState.errors.password,
                 }
               )}
@@ -74,7 +74,7 @@ const LogInPage = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="rounded-md p-1.5 text-gray-600 hover:bg-gray-100 hover:text-black active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white dark:active:bg-gray-700"
+                className="rounded-md p-1.5 text-gray-600 hover:bg-gray-100 hover:text-gray-900 active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white dark:active:bg-gray-600"
               >
                 {showPassword ? (
                   <MdVisibilityOff className="text-xl" />

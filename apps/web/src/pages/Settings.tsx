@@ -9,7 +9,7 @@ const Settings = () => {
   return (
     <>
       <SecondarySidebar>
-        <div className="flex h-12 items-center border-b border-gray-100 px-2 dark:border-gray-800">
+        <div className="flex h-12 items-center border-b border-gray-100 px-2 dark:border-black">
           <p className="flex-1 px-2 text-lg font-bold">Settings</p>
         </div>
         <div className="h-full w-full flex-1 overflow-y-auto p-2">

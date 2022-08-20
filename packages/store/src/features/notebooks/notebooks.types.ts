@@ -1,3 +1,5 @@
+import { Note } from "../notes";
+
 export interface Notebook {
   id: string;
   createdAt: string;
@@ -6,6 +8,8 @@ export interface Notebook {
   description?: string;
   authorId: string;
   parentId?: string;
+  parent?: Notebook;
+  notes?: Note[];
 }
 
 export type CreateNotebookDto = {

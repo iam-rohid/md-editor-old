@@ -1,3 +1,5 @@
+import { Notebook } from "../notebooks";
+
 export interface Note {
   id: string;
   createdAt: string;
@@ -7,11 +9,13 @@ export interface Note {
   description?: string;
   authorId: string;
   notebookId?: string;
+  notebook?: Notebook;
 }
 
 export interface NotesState {
   status: "idle" | "loading" | "error" | "success";
   data: Note[];
+  favoriteNotes: string[];
   error: any;
 }
 
@@ -27,4 +31,5 @@ export type UpdateNoteDto = {
   body?: string;
   notebookId?: string;
   description?: string;
+  isFavorite?: boolean;
 };

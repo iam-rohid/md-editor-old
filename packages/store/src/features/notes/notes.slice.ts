@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { NotesState } from "./notes.types";
 import {
   createNote,
   deleteNote,
+  getAllFavoriteNotes,
   getAllNotes,
   updateNote,
 } from "./notes.actions";
@@ -10,6 +11,7 @@ import {
 const initialState: NotesState = {
   status: "idle",
   data: [],
+  favoriteNotes: [],
   error: null,
 };
 
@@ -19,6 +21,27 @@ export const notesSlice = createSlice({
   reducers: {
     clearErrors: (state) => {
       state.error = null;
+    },
+    changeFavorite: (
+      state,
+      action: PayloadAction<{ id: string; isFavorite: boolean }>
+    ) => {
+      if (
+        action.payload.isFavorite &&
+        !state.favoriteNotes.includes(action.payload.id)
+      ) {
+        state.favoriteNotes = [...state.favoriteNotes, action.payload.id];
+        return;
+      }
+
+      if (
+        !action.payload.isFavorite &&
+        state.favoriteNotes.includes(action.payload.id)
+      ) {
+        state.favoriteNotes = state.favoriteNotes.filter(
+          (f) => f !== action.payload.id
+        );
+      }
     },
   },
   extraReducers(builder) {
@@ -34,6 +57,9 @@ export const notesSlice = createSlice({
         state.status = "success";
         state.data = action.payload;
       });
+    builder.addCase(getAllFavoriteNotes.fulfilled, (state, action) => {
+      state.favoriteNotes = action.payload;
+    });
     builder
       .addCase(createNote.rejected, (state, action) => {
         state.status = "error";

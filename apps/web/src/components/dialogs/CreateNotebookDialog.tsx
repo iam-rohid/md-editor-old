@@ -28,14 +28,12 @@ const CreateNotebookDialog = (props: Props) => {
 
   return (
     <Dialog open={isOpen} onClose={onClose} className="fixed inset-0 z-50">
-      <Dialog.Overlay className="absolute inset-0 bg-black/60 " />
+      <Dialog.Overlay className="absolute inset-0 bg-gray-800/60 " />
       <div className="absolute inset-0 z-10 overflow-y-auto">
-        <Dialog.Panel className="mx-auto my-16 max-w-md rounded-lg border border-gray-100 bg-white shadow-xl dark:border-gray-800 dark:bg-black">
-          <div className="flex h-12 items-center border-b border-gray-100 px-4 dark:border-gray-800">
-            <Dialog.Title className="text-lg font-bold">
-              Create Notebook
-            </Dialog.Title>
-          </div>
+        <Dialog.Panel className="mx-auto my-16 max-w-md overflow-hidden rounded-lg border border-gray-100 bg-white shadow-xl dark:border-gray-700 dark:bg-gray-900">
+          <Dialog.Title className="px-4 pt-4 text-xl font-semibold">
+            Create Notebook
+          </Dialog.Title>
           <form onSubmit={formData.handleSubmit(onSubmit)}>
             <div className="p-4">
               <div className="mb-4 flex flex-col gap-2">
@@ -52,7 +50,7 @@ const CreateNotebookDialog = (props: Props) => {
                     {
                       "border-red-500 dark:border-red-500":
                         !!formData.formState.errors.title,
-                      "border-gray-100 hover:border-gray-200 dark:border-gray-800 dark:hover:border-gray-700":
+                      "border-gray-100 hover:border-gray-200 dark:border-gray-700 dark:hover:border-gray-600":
                         !formData.formState.errors.title,
                     }
                   )}
@@ -83,7 +81,7 @@ const CreateNotebookDialog = (props: Props) => {
                     {
                       "border-red-500 dark:border-red-500":
                         !!formData.formState.errors.description,
-                      "border-gray-100 hover:border-gray-200 dark:border-gray-800 dark:hover:border-gray-700":
+                      "border-gray-100 hover:border-gray-200 dark:border-gray-700 dark:hover:border-gray-600":
                         !formData.formState.errors.description,
                     }
                   )}
@@ -95,17 +93,17 @@ const CreateNotebookDialog = (props: Props) => {
                 )}
               </div>
             </div>
-            <div className="flex w-full justify-end gap-2 border-t border-gray-100 bg-gray-50 px-4 py-2 dark:border-gray-800 dark:bg-gray-900">
+            <div className="flex w-full justify-end gap-2 border-t border-gray-100 bg-gray-50 px-4 py-2 dark:border-black dark:bg-gray-800">
               <button
                 type="reset"
                 onClick={onClose}
-                className="rounded-md px-3.5 py-1.5 font-medium text-gray-600 outline-offset-2 hover:bg-gray-100 hover:text-black active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white dark:active:bg-gray-700"
+                className="rounded-md px-3.5 py-1.5 font-medium text-gray-600 outline-offset-2 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="rounded-md bg-primary-500 px-3.5 py-1.5 font-medium text-white outline-offset-2 hover:bg-primary-600 active:bg-primary-700"
+                className="rounded-md bg-primary-500 px-3.5 py-1.5 font-medium text-white outline-offset-2 hover:bg-primary-600"
               >
                 Create
               </button>

@@ -29,7 +29,7 @@ const PrimarySidebar = () => {
 
   return (
     <div
-      className="flex flex-col overflow-hidden border-r border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-900"
+      className="flex flex-col overflow-hidden border-r border-gray-100 bg-gray-50 dark:border-black dark:bg-gray-800"
       style={{
         width: 220,
       }}

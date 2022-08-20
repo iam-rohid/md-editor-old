@@ -19,7 +19,7 @@ const SourcePane = (props: Props) => {
 
   return (
     <div
-      className="relative h-full w-full flex-1 bg-white dark:bg-black"
+      className="relative h-full w-full flex-1 bg-white dark:bg-gray-900"
       ref={editorRef}
     />
   );

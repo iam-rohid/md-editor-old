@@ -14,9 +14,9 @@ const SidebarItem = (props: Props) => {
       className={classNames(
         "flex cursor-pointer select-none items-center gap-2 rounded-md px-2 py-1",
         {
-          "bg-gray-200 dark:bg-gray-700": isActive,
-          "hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700":
-            !isActive,
+          "bg-primary-500 text-white dark:bg-primary-500 dark:text-white":
+            isActive,
+          "hover:bg-gray-200 dark:hover:bg-gray-700": !isActive,
         }
       )}
     >

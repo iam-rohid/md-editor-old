@@ -1,3 +1,4 @@
+import IconButton from "@/components/IconButton";
 import SITE from "@/constants/SITE";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Popover } from "@headlessui/react";
@@ -22,29 +23,19 @@ const PrimarySidebarHeader = () => {
         {SITE.NAME}
       </Link>
       <div className="flex items-center gap-1">
-        <button
-          type="button"
-          className="flex h-9 w-9 items-center justify-center rounded-md text-gray-600 hover:bg-gray-100 hover:text-black active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white dark:active:bg-gray-700"
+        <IconButton
+          icon={colorScheme === "light" ? <MdLightMode /> : <MdDarkMode />}
           onClick={toggleColorScheme}
-        >
-          {colorScheme === "light" ? (
-            <MdLightMode className="text-2xl" />
-          ) : (
-            <MdDarkMode className="text-2xl" />
-          )}
-        </button>
+        />
         <Popover>
-          {({ close, open }) => (
+          {({ close }) => (
             <>
-              <Popover.Button
-                type="button"
-                className="flex h-9 w-9 items-center justify-center rounded-md text-gray-600 hover:bg-gray-100 hover:text-black active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white dark:active:bg-gray-700"
-              >
+              <Popover.Button as={IconButton} icon={<MdPerson />}>
                 <MdPerson className="text-2xl" />
               </Popover.Button>
-              <Popover.Panel className="absolute z-20 w-64 overflow-hidden rounded-md border border-gray-100 bg-white shadow-2xl dark:border-gray-800 dark:bg-black">
-                <div className="flex items-center gap-2 border-b border-gray-100 p-2 dark:border-gray-800">
-                  <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-md bg-gray-50 dark:bg-gray-900">
+              <Popover.Panel className="absolute z-20 w-64 overflow-hidden rounded-md border border-gray-100 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900">
+                <div className="flex items-center gap-2 border-b border-gray-100 p-2 dark:border-black">
+                  <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-md bg-gray-50 dark:bg-gray-800">
                     {user.photoURL ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
@@ -65,10 +56,10 @@ const PrimarySidebarHeader = () => {
                     </p>
                   </div>
                 </div>
-                <ul className="flex flex-col gap-px bg-gray-50 p-2 dark:bg-gray-900">
+                <ul className="flex flex-col gap-px bg-gray-50 p-2 dark:bg-gray-800">
                   <Link
                     to="settings/account"
-                    className="flex w-full flex-row items-center gap-2 rounded-md px-2 py-1.5 text-left hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+                    className="flex w-full flex-row items-center gap-2 rounded-md px-2 py-1.5 text-left hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-700 dark:active:bg-gray-600"
                     onClick={() => {
                       close();
                     }}
@@ -77,7 +68,7 @@ const PrimarySidebarHeader = () => {
                     <span className="flex-1">Account</span>
                   </Link>
                   <button
-                    className="flex w-full flex-row items-center gap-2 rounded-md px-2 py-1.5 text-left hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+                    className="flex w-full flex-row items-center gap-2 rounded-md px-2 py-1.5 text-left hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-700 dark:active:bg-gray-600"
                     onClick={() => {
                       close();
                       onLogOut();

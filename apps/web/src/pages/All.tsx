@@ -6,12 +6,27 @@ import NoteItem from "@/components/sdiebar/NoteItem";
 import moment from "moment";
 import SidebarNav from "@/components/sdiebar/SidebarNav";
 import SecondarySidebarHeader from "@/components/sdiebar/secondary-sidebar/SecondarySidebarHeader";
-import { MdAdd } from "react-icons/md";
+import { MdFilterList, MdNoteAdd } from "react-icons/md";
 import { createNote, useAppDispatch, useAppSelector } from "@mdotion/store";
+import IconButton from "@/components/IconButton";
 
 const All = () => {
-  const notes = useAppSelector((state) =>
-    [...state.notes.data].sort((n1, n2) => {
+  const notes = useAppSelector((state) => {
+    let notes = [...state.notes.data];
+
+    notes = notes.map((note) => {
+      if (note.notebookId) {
+        return {
+          ...note,
+          notebook: state.notebooks.data.find(
+            (nb) => nb.id === note.notebookId
+          ),
+        };
+      }
+      return note;
+    });
+
+    notes = notes.sort((n1, n2) => {
       if (moment(n1.updatedAt).isAfter(moment(n2.updatedAt))) {
         return -1;
       }
@@ -19,13 +34,15 @@ const All = () => {
         return 1;
       }
       return 0;
-    })
-  );
+    });
+
+    return notes;
+  });
   const dispatch = useAppDispatch();
   const onCreateNote = useCallback(() => {
     dispatch(
       createNote({
-        title: "Untitled",
+        title: "",
       })
     );
   }, [dispatch]);
@@ -34,13 +51,12 @@ const All = () => {
     <>
       <SecondarySidebar>
         <SecondarySidebarHeader title="All Notes">
-          <button
-            type="button"
-            className="flex h-9 w-9 items-center justify-center rounded-md text-gray-600 hover:bg-gray-100 hover:text-black active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white dark:active:bg-gray-700"
+          <IconButton
+            icon={<MdNoteAdd />}
+            label="Create new note"
             onClick={onCreateNote}
-          >
-            <MdAdd className="text-2xl" />
-          </button>
+          />
+          <IconButton icon={<MdFilterList />} label="Delete Note" />
         </SecondarySidebarHeader>
         <SidebarNav>
           <SidebarItemGroup>
