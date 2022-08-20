@@ -37,7 +37,7 @@ const PrimarySidebar = () => {
       <PrimarySidebarHeader />
       <nav className="h-full w-full flex-1 overflow-y-auto p-2">
         <SidebarItemGroup>
-          <SidebarItem icon={<MdSearch />} label="Search" />
+          {/* <SidebarItem icon={<MdSearch />} label="Search" /> */}
           <Link to="all">
             {({ isActive }) => (
               <SidebarItem
