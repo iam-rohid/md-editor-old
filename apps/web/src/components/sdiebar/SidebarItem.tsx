@@ -1,9 +1,10 @@
 import { ReactNode } from "react";
 import classNames from "classnames";
+import { MdEdit } from "react-icons/md";
 
 type Props = {
-  label: string;
   icon: ReactNode;
+  label: string;
   isActive?: boolean;
 };
 
@@ -12,7 +13,7 @@ const SidebarItem = (props: Props) => {
   return (
     <div
       className={classNames(
-        "flex cursor-pointer select-none items-center gap-2 rounded-md px-2 py-1",
+        "flex cursor-pointer select-none items-center gap-2 rounded-md px-3 py-1",
         {
           "bg-primary-500 text-white dark:bg-primary-500 dark:text-white":
             isActive,
@@ -20,7 +21,7 @@ const SidebarItem = (props: Props) => {
         }
       )}
     >
-      <span className="text-xl">{icon}</span>
+      <span className="text-2xl">{icon}</span>
       <span className="flex-1 truncate">{label}</span>
     </div>
   );

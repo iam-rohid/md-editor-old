@@ -1,6 +1,5 @@
 import { Note } from "@mdotion/store";
 import { Link } from "@tanstack/react-location";
-import moment from "moment";
 import NoteItem from "./NoteItem";
 import SidebarItemGroup from "./SidebarItemGroup";
 
@@ -15,7 +14,7 @@ const NotesList = (props: Props) => {
     <nav className="h-full w-full flex-1 overflow-y-auto p-2">
       <SidebarItemGroup>
         {notes.map((note) => (
-          <Link key={note.id} to={`note/${note.id}`}>
+          <Link to={`note/${note.id}`}>
             {({ isActive }) => <NoteItem note={note} isActive={isActive} />}
           </Link>
         ))}

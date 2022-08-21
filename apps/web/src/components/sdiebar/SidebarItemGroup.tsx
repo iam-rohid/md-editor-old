@@ -17,7 +17,7 @@ const SidebarItemGroup = (props: SidebarNavGroupProps) => {
     <div className="mb-4 flex flex-col">
       {!!title && (
         <div className="flex h-8 items-center">
-          <p className="flex-1 truncate px-2 text-sm uppercase text-gray-600 dark:text-gray-300">
+          <p className="flex-1 truncate px-3 text-sm uppercase text-gray-600 dark:text-gray-300">
             {title}
           </p>
           {!!actions && actions.length > 0 && (

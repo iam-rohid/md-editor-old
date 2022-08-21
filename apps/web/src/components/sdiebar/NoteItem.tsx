@@ -114,7 +114,7 @@ const NoteItem = (props: NoteItemProps) => {
       <ContextMenu.Trigger asChild>
         <div
           className={classNames(
-            "flex cursor-pointer select-none flex-col rounded-md py-2 px-3",
+            "flex cursor-pointer select-none flex-col rounded-md py-1.5 px-3",
             {
               "bg-primary-500 text-white dark:bg-primary-500 dark:text-white":
                 isActive,
@@ -134,9 +134,7 @@ const NoteItem = (props: NoteItemProps) => {
           </p>
           <div className="flex flex-row items-center opacity-80">
             {!!notebook && (
-              <div
-                className={classNames("flex max-w-[7rem] items-center gap-1")}
-              >
+              <div className={classNames("flex items-center gap-1")}>
                 <span className="text-md">
                   <MdFolder />
                 </span>

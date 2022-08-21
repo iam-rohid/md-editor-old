@@ -6,7 +6,7 @@ import NoteItem from "@/components/sdiebar/NoteItem";
 import moment from "moment";
 import SidebarNav from "@/components/sdiebar/SidebarNav";
 import SecondarySidebarHeader from "@/components/sdiebar/secondary-sidebar/SecondarySidebarHeader";
-import { MdFilterList, MdNoteAdd } from "react-icons/md";
+import { MdNoteAdd } from "react-icons/md";
 import { createNote, useAppDispatch, useAppSelector } from "@mdotion/store";
 import IconButton from "@/components/IconButton";
 

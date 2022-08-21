@@ -76,7 +76,7 @@ const PrimarySidebar = () => {
           </Link>
         </SidebarItemGroup>
         <NotebooksList />
-        <TagsList />
+        {/* <TagsList /> */}
       </nav>
     </div>
   );
