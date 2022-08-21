@@ -61,24 +61,23 @@ export class NotebooksService {
     }
   }
 
-  async update(
-    id: string,
-    updateNotebookDto: UpdateNotebookDto,
-    authorId: string,
-  ) {
-    await this.findOne(id, authorId);
+  async update(notebookId: string, dto: UpdateNotebookDto, authorId: string) {
+    await this.findOne(notebookId, authorId);
     return await this.prisma.notebook.update({
       where: {
-        id,
+        id: notebookId,
       },
       data: {
-        title: updateNotebookDto.title,
-        description: updateNotebookDto.description,
-        parent: {
-          connect: {
-            id: updateNotebookDto.parentId,
-          },
-        },
+        title: dto.title,
+        description: dto.description,
+        parent:
+          typeof dto.parentId !== 'undefined'
+            ? {
+                connect: {
+                  id: dto.parentId,
+                },
+              }
+            : undefined,
       },
     });
   }

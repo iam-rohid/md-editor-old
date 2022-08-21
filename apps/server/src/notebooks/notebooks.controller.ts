@@ -49,13 +49,13 @@ export class NotebooksController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateNotebookDto: UpdateNotebookDto,
+    @Body() dto: UpdateNotebookDto,
     @Request() req: any,
   ) {
     const {
       user: { userId },
     } = req;
-    return this.notebooksService.update(id, updateNotebookDto, userId);
+    return this.notebooksService.update(id, dto, userId);
   }
 
   @UseGuards(JwtAuthGuard)
