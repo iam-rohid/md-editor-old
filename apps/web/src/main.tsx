@@ -6,6 +6,7 @@ import ThemeProvider from "./contexts/ThemeContext";
 import queryClient from "./libs/queryClient";
 import "./styles/globals.css";
 import { Provider } from "@mdotion/store";
+import "../themes/dracula.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

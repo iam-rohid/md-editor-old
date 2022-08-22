@@ -56,7 +56,6 @@ body {
 .cm-editor.cm-focused .cm-selectionBackground {
   @apply bg-gray-200 dark:bg-gray-600;
 }
-
 .cm-editor .cm-line {
-  @apply px-4;
+  @apply pl-1 pr-2;
 }

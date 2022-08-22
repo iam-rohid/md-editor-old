@@ -71,13 +71,13 @@ export const languageComp = new Compartment();
 export const themeComp = new Compartment();
 export const updateListenerCamp = new Compartment();
 
-const useCodeMirror = (doc?: string) => {
+const useCodeMirror = (doc: string, onDocChange: (value: string) => void) => {
   const editorRef = useRef<HTMLDivElement>(null);
   const [editorView, setEditorView] = useState<EditorView | null>(null);
 
   useEffect(() => {
     if (!editorRef.current) return;
-    const state = getEditorState(doc);
+    const state = getEditorState(doc, onDocChange);
     const view = new EditorView({
       state,
       parent: editorRef.current,
@@ -94,7 +94,10 @@ const useCodeMirror = (doc?: string) => {
 
 export default useCodeMirror;
 
-export const getEditorState = (doc?: string): EditorState => {
+export const getEditorState = (
+  doc: string,
+  onDocChange: (value: string) => void
+): EditorState => {
   return EditorState.create({
     extensions: [
       indentUnit.of("    "),
@@ -121,7 +124,7 @@ export const getEditorState = (doc?: string): EditorState => {
         },
       }),
       codeFolding({
-        placeholderDOM(view, onclick) {
+        placeholderDOM(_, onclick) {
           const el = document.createElement("span");
           el.innerText = "...";
           el.title = "Unfold line";
@@ -138,7 +141,13 @@ export const getEditorState = (doc?: string): EditorState => {
       EditorView.lineWrapping,
       themeComp.of([syntaxHighlighting(myHighlightStyle)]),
       placeholder("Start Typing..."),
-      updateListenerCamp.of([]),
+      updateListenerCamp.of([
+        EditorView.updateListener.of((update) => {
+          if (update.docChanged) {
+            onDocChange(String(update.state.doc));
+          }
+        }),
+      ]),
     ],
     doc,
     selection: EditorSelection.cursor(0),
