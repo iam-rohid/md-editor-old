@@ -6,6 +6,7 @@ import {
   drawSelection,
   scrollPastEnd,
   rectangularSelection,
+  lineNumbers,
 } from "@codemirror/view";
 import {
   indentWithTab,
@@ -16,7 +17,7 @@ import {
 } from "@codemirror/commands";
 import { markdown } from "@codemirror/lang-markdown";
 import { EditorState, Compartment, EditorSelection } from "@codemirror/state";
-import { HighlightStyle } from "@codemirror/language";
+import { HighlightStyle, foldGutter, codeFolding } from "@codemirror/language";
 import { tags } from "@lezer/highlight";
 import { syntaxHighlighting } from "@codemirror/language";
 import { closeBrackets, closeBracketsKeymap } from "@codemirror/autocomplete";
@@ -107,6 +108,27 @@ export const getEditorState = (doc?: string): EditorState => {
       ]),
       drawSelection({
         drawRangeCursor: true,
+      }),
+      lineNumbers(),
+      foldGutter({
+        markerDOM(open) {
+          const el = document.createElement("span");
+          el.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M24 24H0V0h24v24z" fill="none" opacity=".87"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/></svg>`;
+          el.classList.add("fold-button");
+          el.classList.add(open ? "open" : "close");
+          el.title = "Fold line";
+          return el;
+        },
+      }),
+      codeFolding({
+        placeholderDOM(view, onclick) {
+          const el = document.createElement("span");
+          el.innerText = "...";
+          el.title = "Unfold line";
+          el.onclick = onclick;
+          el.classList.add("unfold-button");
+          return el;
+        },
       }),
       rectangularSelection(),
       languageComp.of(markdown()),

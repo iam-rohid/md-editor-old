@@ -20,23 +20,29 @@ body {
 .cm-editor {
   @apply h-full w-full overflow-hidden;
 }
-.cm-editor.cm-editor.cm-focused {
-  @apply outline-none;
-}
-.cm-editor .cm-content {
-  @apply mx-auto max-w-2xl leading-6 caret-white dark:text-white;
-}
 .cm-editor .cm-gutters {
-  @apply border-none bg-transparent;
+  @apply border-none bg-white bg-transparent px-2 text-gray-600 dark:text-gray-400;
 }
-.cm-editor .cm-gutter.cm-lineNumbers {
-  display: none !important;
+.cm-editor .fold-button {
+  @apply block h-6 w-6 cursor-pointer;
+}
+.cm-editor .fold-button.close {
+  @apply -rotate-90;
+}
+.cm-editor .unfold-button {
+  @apply inline rounded-md;
+}
+.cm-editor .fold-button,
+.cm-editor .unfold-button {
+  @apply cursor-pointer text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white;
+}
+.cm-editor .fold-button svg,
+.cm-editor .unfold-button svg {
+  display: unset;
 }
 .cm-editor .cm-activeLineGutter {
-  @apply bg-transparent;
 }
 .cm-editor .cm-activeLine {
-  @apply bg-transparent;
 }
 .cm-editor .cm-scroller {
   @apply overflow-auto font-mono text-base;
@@ -44,11 +50,13 @@ body {
 .cm-editor .cm-cursor {
   @apply border-l-2 border-yellow-400;
 }
-
 .cm-editor .cm-selectionBackground {
   @apply bg-gray-100 dark:bg-gray-800;
 }
-
 .cm-editor.cm-focused .cm-selectionBackground {
   @apply bg-gray-200 dark:bg-gray-600;
+}
+
+.cm-editor .cm-line {
+  @apply px-4;
 }
