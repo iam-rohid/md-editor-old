@@ -4,7 +4,6 @@ import SidebarItem from "../SidebarItem";
 import SidebarItemGroup from "../SidebarItemGroup";
 import PrimarySidebarHeader from "./PrimarySidebarHeader";
 import NotebooksList from "../NotebooksList";
-import TagsList from "../TagsList";
 import { useEffect } from "react";
 import {
   getNotebooks,
@@ -12,6 +11,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@mdotion/store";
+import PrimarySidebarFooter from "./PrimarySidebarFooter";
 
 const PrimarySidebar = () => {
   const notebookStatus = useAppSelector((state) => state.notebooks.status);
@@ -29,9 +29,9 @@ const PrimarySidebar = () => {
 
   return (
     <div
-      className="flex flex-col overflow-hidden border-r border-gray-100 bg-gray-50 dark:border-black dark:bg-gray-800"
+      className="flex flex-col border-r border-gray-100 bg-gray-50 dark:border-black dark:bg-gray-800"
       style={{
-        width: 220,
+        width: 240,
       }}
     >
       <PrimarySidebarHeader />
@@ -65,7 +65,7 @@ const PrimarySidebar = () => {
               />
             )}
           </Link>
-          <Link to="settings">
+          {/* <Link to="settings">
             {({ isActive }) => (
               <SidebarItem
                 icon={<MdSettings />}
@@ -73,11 +73,12 @@ const PrimarySidebar = () => {
                 isActive={isActive}
               />
             )}
-          </Link>
+          </Link> */}
         </SidebarItemGroup>
         <NotebooksList />
         {/* <TagsList /> */}
       </nav>
+      <PrimarySidebarFooter />
     </div>
   );
 };

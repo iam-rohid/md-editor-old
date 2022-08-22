@@ -1,12 +1,13 @@
 import { Note, updateNote, useAppDispatch } from "@mdotion/store";
 import { EditorView } from "codemirror";
 import { useCallback, useEffect, useState } from "react";
-import EditorToolbar from "./EditorToolbar";
+import NoteHeader from "../NoteHeader";
 import useCodeMirror, {
   getEditorState,
   updateListenerCamp,
 } from "@/hooks/useCodeMirror";
 import removeMD from "remove-markdown";
+import EditorToolbar from "./EditorToolbar";
 type Props = {
   note: Note;
 };
@@ -76,7 +77,7 @@ const Editor = (props: Props) => {
 
   return (
     <div className="flex h-full w-full flex-1 flex-col overflow-hidden bg-white dark:bg-gray-900">
-      <EditorToolbar note={note} />
+      {/* <EditorToolbar /> */}
       <div className="flex h-full w-full flex-1 overflow-hidden">
         <div
           className="relative h-full w-full flex-1 bg-white dark:bg-gray-900"

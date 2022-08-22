@@ -19,7 +19,7 @@ const PrimarySidebarHeader = () => {
   if (!user) return null;
   return (
     <div className="flex h-12 w-full items-center px-2">
-      <Link to="/" className="flex-1 truncate px-2 text-lg font-bold uppercase">
+      <Link to="/" className="flex-1 truncate px-3 text-lg font-bold uppercase">
         {SITE.NAME}
       </Link>
       <div className="flex items-center gap-1">
